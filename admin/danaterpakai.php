@@ -50,16 +50,16 @@
                     </div>
                 </div>
 
-                <div class="box box-info">
-                    <div class="box-header">
-                        <h3 class="box-title">Laporan Anggaran Naskah Penerima Hibah Dana</h3>
-                    </div>
-                    <div class="box-body">
-                        <?php
-                        $periode = mysqli_query($koneksi, "SELECT * FROM bank");
-                        if (isset($_GET['periode'])) {
-                            $periode = $_GET['periode'];
-                        ?>
+                <?php
+                $periode = mysqli_query($koneksi, "SELECT * FROM bank");
+                if (isset($_GET['periode'])) {
+                    $periode = $_GET['periode'];
+                ?>
+                    <div class="box box-info">
+                        <div class="box-header">
+                            <h3 class="box-title">Laporan Anggaran Naskah Penerima Hibah Dana</h3>
+                        </div>
+                        <div class="box-body">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <table class="table table-bordered">
@@ -73,9 +73,6 @@
                                                 echo $kk['periode']; ?></td>
                                         </tr>
                                     </table>
-                                <?php
-                            }
-                                ?>
                                 </div>
                             </div>
 
@@ -159,8 +156,11 @@ WHERE transaksi.transaksi_jenis='pengeluaran' AND nphd.bank_id = '$periode'
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
                     </div>
-                </div>
+                <?php
+                }
+                ?>
             </section>
         </div>
     </section>
