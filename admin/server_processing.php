@@ -32,7 +32,7 @@ $response = array(
 );
 
 // Add the data to the response
-while($row = mysqli_fetch_assoc($data)) {
+while ($row = mysqli_fetch_assoc($data)) {
   $response['data'][] = $row;
 }
 

@@ -14,12 +14,10 @@
                 <div class="box box-info">
                     <div class="btn-group pull-right">
 
-                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                            data-target="#exampleModal">
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-plus"></i> &nbsp Tambah Piutang
                         </button>
-                        <a href="piutang_print.php" target="_blank" class="btn btn-sm btn-primary"><i
-                                class="fa fa-print"></i> &nbsp
+                        <a href="piutang_print.php" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-print"></i> &nbsp
                             PRINT</a>
                     </div>
 
@@ -27,8 +25,7 @@
 
                         <!-- Modal -->
                         <form action="piutang_act.php" method="post">
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -41,14 +38,12 @@
 
                                             <div class="form-group">
                                                 <label>Tanggal</label>
-                                                <input type="text" name="tanggal" required="required"
-                                                    class="form-control datepicker2">
+                                                <input type="text" name="tanggal" required="required" class="form-control datepicker2">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Nominal</label>
-                                                <input type="number" name="nominal" required="required"
-                                                    class="form-control" placeholder="Masukkan Nominal ..">
+                                                <input type="number" name="nominal" required="required" class="form-control" placeholder="Masukkan Nominal ..">
                                             </div>
 
                                             <div class="form-group">
@@ -58,8 +53,7 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Tutup</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                             <button type="submit" class="btn btn-primary">Simpan</button>
                                         </div>
                                     </div>
@@ -81,124 +75,100 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                  include '../koneksi.php';
-                  $no=1;
-                  $data = mysqli_query($koneksi,"SELECT * FROM piutang");
-                  while($d = mysqli_fetch_array($data)){
-                    ?>
-                                    <tr>
-                                        <td class="text-center"><?php echo $no++; ?></td>
-                                        <td>PTG-000<?php echo $d['piutang_id']; ?></td>
-                                        <td class="text-center">
-                                            <?php echo date('d-m-Y', strtotime($d['piutang_tanggal'])); ?></td>
-                                        <td><?php echo $d['piutang_keterangan']; ?></td>
-                                        <td class="text-center">
-                                            <?php echo "Rp. ".number_format($d['piutang_nominal'])." ,-"; ?></td>
-                                        <td>
+                                    <?php
+                                    include '../koneksi.php';
+                                    $no = 1;
+                                    $data = mysqli_query($koneksi, "SELECT * FROM piutang");
+                                    while ($d = mysqli_fetch_array($data)) {
+                                    ?>
+                                        <tr>
+                                            <td class="text-center"><?php echo $no++; ?></td>
+                                            <td>PTG-000<?php echo $d['piutang_id']; ?></td>
+                                            <td class="text-center">
+                                                <?php echo date('d-m-Y', strtotime($d['piutang_tanggal'])); ?></td>
+                                            <td><?php echo $d['piutang_keterangan']; ?></td>
+                                            <td class="text-center">
+                                                <?php echo "Rp. " . number_format($d['piutang_nominal']) . " ,-"; ?></td>
+                                            <td>
 
-                                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                                data-target="#edit_piutang_<?php echo $d['piutang_id'] ?>">
-                                                <i class="fa fa-cog"></i>
-                                            </button>
+                                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit_piutang_<?php echo $d['piutang_id'] ?>">
+                                                    <i class="fa fa-cog"></i>
+                                                </button>
 
-                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                data-target="#hapus_piutang_<?php echo $d['piutang_id'] ?>">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_piutang_<?php echo $d['piutang_id'] ?>">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
 
 
-                                            <form action="piutang_update.php" method="post">
-                                                <div class="modal fade" id="edit_piutang_<?php echo $d['piutang_id'] ?>"
-                                                    tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                    aria-hidden="true">
+                                                <form action="piutang_update.php" method="post">
+                                                    <div class="modal fade" id="edit_piutang_<?php echo $d['piutang_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title" id="exampleModalLabel">Edit
+                                                                        piutang</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                    <div class="form-group" style="width:100%;margin-bottom:20px">
+                                                                        <label>Tanggal</label>
+                                                                        <input type="hidden" name="id" value="<?php echo $d['piutang_id'] ?>">
+                                                                        <input type="text" style="width:100%" name="tanggal" required="required" class="form-control datepicker2" value="<?php echo $d['piutang_tanggal'] ?>">
+                                                                    </div>
+
+                                                                    <div class="form-group" style="width:100%;margin-bottom:20px">
+                                                                        <label>Nominal</label>
+                                                                        <input type="number" style="width:100%" name="nominal" required="required" class="form-control" placeholder="Masukkan Nominal .." value="<?php echo $d['piutang_nominal'] ?>">
+                                                                    </div>
+
+                                                                    <div class="form-group" style="width:100%">
+                                                                        <label>Keterangan</label>
+                                                                        <textarea name="keterangan" style="width:100%" class="form-control" rows="4"><?php echo $d['piutang_keterangan'] ?></textarea>
+                                                                    </div>
+
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" class="btn btn-primary">Simpan</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+
+                                                <!-- modal hapus -->
+                                                <div class="modal fade" id="hapus_piutang_<?php echo $d['piutang_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" id="exampleModalLabel">Edit
-                                                                    piutang</h4>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
+                                                                <h4 class="modal-title" id="exampleModalLabel">Peringatan!
+                                                                </h4>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
 
-                                                                <div class="form-group"
-                                                                    style="width:100%;margin-bottom:20px">
-                                                                    <label>Tanggal</label>
-                                                                    <input type="hidden" name="id"
-                                                                        value="<?php echo $d['piutang_id'] ?>">
-                                                                    <input type="text" style="width:100%" name="tanggal"
-                                                                        required="required"
-                                                                        class="form-control datepicker2"
-                                                                        value="<?php echo $d['piutang_tanggal'] ?>">
-                                                                </div>
-
-                                                                <div class="form-group"
-                                                                    style="width:100%;margin-bottom:20px">
-                                                                    <label>Nominal</label>
-                                                                    <input type="number" style="width:100%"
-                                                                        name="nominal" required="required"
-                                                                        class="form-control"
-                                                                        placeholder="Masukkan Nominal .."
-                                                                        value="<?php echo $d['piutang_nominal'] ?>">
-                                                                </div>
-
-                                                                <div class="form-group" style="width:100%">
-                                                                    <label>Keterangan</label>
-                                                                    <textarea name="keterangan" style="width:100%"
-                                                                        class="form-control"
-                                                                        rows="4"><?php echo $d['piutang_keterangan'] ?></textarea>
-                                                                </div>
-
+                                                                <p>Yakin ingin menghapus data ini ?</p>
 
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Tutup</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                <a href="piutang_hapus.php?id=<?php echo $d['piutang_id'] ?>" class="btn btn-primary">Hapus</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
 
-                                            <!-- modal hapus -->
-                                            <div class="modal fade" id="hapus_piutang_<?php echo $d['piutang_id'] ?>"
-                                                tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                                                aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="exampleModalLabel">Peringatan!
-                                                            </h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-
-                                                            <p>Yakin ingin menghapus data ini ?</p>
-
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-dismiss="modal">Tutup</button>
-                                                            <a href="piutang_hapus.php?id=<?php echo $d['piutang_id'] ?>"
-                                                                class="btn btn-primary">Hapus</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </td>
-                                    </tr>
-                                    <?php 
-                }
-                ?>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
