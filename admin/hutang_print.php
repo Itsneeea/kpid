@@ -16,9 +16,6 @@
          <h4>SISTEM IFORMASI KEUANGAN</h4>
      </center>
 
-
-
-
      <div class="row">
          <div class="col-lg-6">
              <table class="table table-bordered">
@@ -32,12 +29,12 @@
      </div>
 
      <?php
-  include '../koneksi.php';
-  $data = mysqli_query($koneksi, "SELECT * FROM hutang");
-  $hutang = mysqli_fetch_all($data, MYSQLI_ASSOC);
-  $total_hutang = array_sum(array_column($hutang, 'hutang_nominal'));
- 
-?>
+        include '../koneksi.php';
+        $data = mysqli_query($koneksi, "SELECT * FROM hutang");
+        $hutang = mysqli_fetch_all($data, MYSQLI_ASSOC);
+        $total_hutang = array_sum(array_column($hutang, 'hutang_nominal'));
+
+        ?>
 
      <div class="table-responsive">
          <table class="table table-bordered table-striped">
@@ -52,25 +49,25 @@
              </thead>
              <tbody>
                  <?php
-        include '../koneksi.php';
-        $no = 1;
-        $data = mysqli_query($koneksi, "SELECT * FROM hutang");
-        while($d = mysqli_fetch_assoc($data)) {
-      ?>
-                 <tr>
-                     <td class="text-center"><?php echo $no++; ?></td>
-                     <td>HTG-000<?php echo $d['hutang_id']; ?></td>
-                     <td class="text-center"><?php echo date('d-m-Y', strtotime($d['hutang_tanggal'])); ?></td>
-                     <td><?php echo $d['hutang_keterangan']; ?></td>
-                     <td><?php echo "Rp. ".number_format($d['hutang_nominal'])." ,-"; ?></td>
-                 </tr>
+                    include '../koneksi.php';
+                    $no = 1;
+                    $data = mysqli_query($koneksi, "SELECT * FROM hutang");
+                    while ($d = mysqli_fetch_assoc($data)) {
+                    ?>
+                     <tr>
+                         <td class="text-center"><?php echo $no++; ?></td>
+                         <td>HTG-000<?php echo $d['hutang_id']; ?></td>
+                         <td class="text-center"><?php echo date('d-m-Y', strtotime($d['hutang_tanggal'])); ?></td>
+                         <td><?php echo $d['hutang_keterangan']; ?></td>
+                         <td><?php echo "Rp. " . number_format($d['hutang_nominal']) . " ,-"; ?></td>
+                     </tr>
                  <?php
-          }
-      ?>
+                    }
+                    ?>
                  <tr>
                      <th colspan="4" class="text-right">TOTAL</th>
                      <td class="text-center text-bold text-success">
-                         <?php echo "Rp. ".number_format($total_hutang)." ,-"; ?>
+                         <?php echo "Rp. " . number_format($total_hutang) . " ,-"; ?>
                      </td>
                  </tr>
 
@@ -79,8 +76,8 @@
          </table>
      </div>
      <script>
-     window.print();
-     $(document).ready(function() {});
+         window.print();
+         $(document).ready(function() {});
      </script>
 
  </body>

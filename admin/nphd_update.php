@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../koneksi.php';
 $id  = $_POST['id'];
 $uraian  = $_POST['uraian_nphd'];
