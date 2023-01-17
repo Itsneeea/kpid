@@ -1,14 +1,11 @@
 <?php include 'header.php'; ?>
 
 <div class="content-wrapper">
-
     <section class="content-header">
         <h1>
-            Transaksi
-            <small>Data Transaksi</small>
+            LAPORAN TRANSAKSI
         </h1>
     </section>
-
     <section class="content">
         <div class="row">
             <section class="col-lg-12">
@@ -349,7 +346,8 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title" id="exampleModalLabel">Lihat Bukti
+                                                            <h4 class="modal-title" id="exampleModalLabel">Lihat
+                                                                Bukti
                                                                 Upload</h4>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
@@ -376,7 +374,8 @@
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
                                                         <div class="modal-header">
-                                                            <h4 class="modal-title" id="exampleModalLabel">Peringatan!
+                                                            <h4 class="modal-title" id="exampleModalLabel">
+                                                                Peringatan!
                                                             </h4>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">

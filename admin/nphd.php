@@ -249,6 +249,29 @@ while($k=mysqli_fetch_array($kategori)){
 ?>
                                         </select>
                                     </div>
+                                    <label>Anggaran</label>
+                                    <select name="tahun" class="form-control" id="periode">
+                                        <option value="">
+                                            -Pilih-
+                                        </option>
+                                        <?php
+include'../koneksi.php';
+$periode=mysqli_query($koneksi,"SELECT*FROM bank ORDER BY periode ASC");
+while($k=mysqli_fetch_array($periode)){
+?>
+                                        <option value="<?php echo $k['bank_id'];?>">
+                                            <b><?php echo $k['periode'];?></b>
+                                        </option>
+                                        <?php
+}
+?>
+                                    </select>
+
+                                    <div class="form-group">
+                                        <label>Keterangan</label>
+                                        <input type="text" name="uraian_nphd" class="form-control"
+                                            placeholder="Masukkan Keterangan..">
+                                    </div>
                                     <div class="form-group">
                                         <label>Volume</label>
                                         <input type="number" name="volume_nphd" class="form-control"

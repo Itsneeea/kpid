@@ -40,7 +40,7 @@ if($filename == ""){
 		move_uploaded_file($_FILES['trnfoto']['tmp_name'], '../gambar/bukti/'.$rand.'_'.$filename);
 		$file_gambar = $rand.'_'.$filename;
 		mysqli_query($koneksi, "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','$nominal','$keterangan','$file_gambar','$bank')");
-		header("location:transaksi.php?alert=berhasil");
+		header("location:bukukas.php?alert=berhasil");
 	}
 }
 

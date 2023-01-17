@@ -23,17 +23,20 @@
                                         <label>Periode</label>
                                         <select name="periode" class="form-control" required="required">
                                             <option value="semua">- Pilih -</option>
-                                            <?php 
-                      $periode = mysqli_query($koneksi,"SELECT * FROM bank");
-                      while($p = mysqli_fetch_array($periode)){
-                        ?>
-                                            <option
-                                                <?php if(isset($_GET['periode'])){ if($_GET['periode'] == $p['bank_id']){echo "selected='selected'";}} ?>
-                                                value="<?php echo $p['bank_id']; ?>"><?php echo $p['periode']; ?>
+                                            <?php
+                                            $periode = mysqli_query($koneksi, "SELECT * FROM bank");
+                                            while ($p = mysqli_fetch_array($periode)) {
+                                            ?>
+                                            <option <?php if (isset($_GET['periode'])) {
+                                                            if ($_GET['periode'] == $p['bank_id']) {
+                                                                echo "selected='selected'";
+                                                            }
+                                                        } ?> value="<?php echo $p['bank_id']; ?>">
+                                                <?php echo $p['periode']; ?>
                                             </option>
-                                            <?php 
-                      }
-                      ?>
+                                            <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -48,16 +51,16 @@
                     </div>
                 </div>
 
+                <?php
+                $periode = mysqli_query($koneksi, "SELECT * FROM bank");
+                if (isset($_GET['periode'])) {
+                    $periode = $_GET['periode'];
+                ?>
                 <div class="box box-info">
                     <div class="box-header">
                         <h3 class="box-title">Laporan Anggaran Naskah Penerima Hibah Dana</h3>
                     </div>
                     <div class="box-body">
-                        <?php 
-                         $periode = mysqli_query($koneksi,"SELECT * FROM bank");
-            if(isset($_GET['periode'])){
-              $periode= $_GET['periode'];
-              ?>
                         <div class="row">
                             <div class="col-lg-6">
                                 <table class="table table-bordered">
@@ -65,15 +68,12 @@
                                         <th>PERIODE</th>
                                         <th>:</th>
                                         <td>
-                                            <?php 
-                                     $k = mysqli_query($koneksi,"select * from bank where bank_id='$periode'");
-                          $kk = mysqli_fetch_assoc($k);
-                          echo $kk['periode'];?></td>
+                                            <?php
+                                                $k = mysqli_query($koneksi, "select * from bank where bank_id='$periode'");
+                                                $kk = mysqli_fetch_assoc($k);
+                                                echo $kk['periode']; ?></td>
                                     </tr>
                                 </table>
-                                <?php 
-            }
-              ?>
                             </div>
                         </div>
 
@@ -107,60 +107,56 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                    include '../koneksi.php';
-                    $no=1;
-                    $tarif_nphd=0; 
-                    $transaksi_nominal=0;
-$data = mysqli_query($koneksi, "
-SELECT DISTINCT nphd.id_nphd, nphd.tarif_nphd, kategori.kategori_id, kategori.kategori, transaksi.transaksi_nominal, transaksi.transaksi_jenis 
-FROM nphd
-LEFT JOIN kategori
-ON nphd.kategori_nphd = kategori.kategori_id
-LEFT JOIN transaksi
-ON transaksi.transaksi_nominal = kategori.kategori_id
-WHERE transaksi.transaksi_jenis='pengeluaran' AND nphd.bank_id = '$periode'
-") ;
-while($d = mysqli_fetch_array($data)){
-  $tarif_nphd = $d['tarif_nphd'];
-  $transaksi_nominal = $d['transaksi_nominal'];
-    ?>
+                                    <?php
+                                        include '../koneksi.php';
+                                        $no = 1;
+                                        $tarif_nphd = 0;
+                                        $transaksi_nominal = 0;
+                                        $data = mysqli_query($koneksi, "SELECT nphd.id_nphd, SUM(nphd.tarif_nphd) AS tarif_nphd, kategori.kategori_id, kategori.kategori, SUM(transaksi.transaksi_nominal) AS transaksi_nominal, transaksi.transaksi_jenis, nphd.bank_id FROM nphd LEFT JOIN kategori ON nphd.kategori_nphd = kategori.kategori_id LEFT JOIN transaksi ON transaksi.transaksi_kategori = kategori.kategori_id WHERE transaksi.transaksi_jenis='Pengeluaran' AND nphd.bank_id='$periode' GROUP BY kategori.kategori_id");
+                                        while ($d = mysqli_fetch_array($data)) {
+                                            $tarif_nphd = $d['tarif_nphd'];
+                                            $transaksi_nominal = $d['transaksi_nominal'];
+                                            $persentase = ($transaksi_nominal / $tarif_nphd) * 100;
+                                        ?>
                                     <tr>
                                         <td width="5%">
-                                            <?php echo $no++;?>
+                                            <?php echo $no++; ?>
                                         </td>
                                         <td>
-                                            <?php echo $d['kategori'];?>
+                                            <?php echo $d['kategori']; ?>
                                         </td>
                                         <td>
-                                            <?php echo $d['transaksi_nominal'];?>
+                                            <?php echo "Rp. " . number_format($transaksi_nominal) . " ,-"; ?>
                                         </td>
                                         <td>
-                                            <?php echo $d['tarif_nphd'];?>
+                                            <?php echo "Rp. " . number_format($tarif_nphd) . " ,-"; ?>
                                         </td>
                                         </td>
                                         <td>
-                                            <?php echo "Rp. ".number_format($tarif_nphd)." ,-"; ?>
+                                            <?php echo round($persentase, 2) . "%"; ?>
                                         </td>
                                     </tr>
 
 
-                                    <!-- <?php 
-            // }else{
-              ?> -->
+                                    <!-- <?php
+                                                    // }else{
+                                                    ?> -->
 
                                     <!-- <div class="alert alert-info text-center">
                                         Silahkan Filter Laporan Terlebih Dulu.
                                     </div> -->
 
                                     <?php
-            }
-            ?>
+                                        }
+                                        ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+                <?php
+                }
+                ?>
             </section>
         </div>
     </section>

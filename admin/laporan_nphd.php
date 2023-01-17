@@ -1,11 +1,9 @@
 <?php include 'header.php'; ?>
 
 <div class="content-wrapper">
-
     <section class="content-header">
         <h1>
-            LAPORAN
-            <small>Data Laporan</small>
+            LAPORAN ANGGARAN NPHD
         </h1>
     </section>
     <section class="content">

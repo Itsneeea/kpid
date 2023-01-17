@@ -1,12 +1,10 @@
 <?php include 'header.php'; ?>
-
 <div class="content-wrapper">
     <section class="content-header">
         <h1>
             BUKU KAS UMUM
         </h1>
     </section>
-
     <section class="content">
         <div class="row">
             <section class="col-lg-12">
@@ -23,9 +21,9 @@
                         </div>
                     </div>
                     <hr>
-                    <?php 
-                if(isset($_GET['alert'])){
-                  if($_GET['alert']=='gagal'){
+                    <?php
+                    if (isset($_GET['alert'])) {
+                        if ($_GET['alert'] == 'gagal') {
                     ?>
                     <div class="alert alert-warning alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -33,25 +31,25 @@
                         Ekstensi Tidak Diperbolehkan
                     </div>
                     <?php
-                  }else if($_GET['alert']=="berhasil"){
-                    ?>
+                        } else if ($_GET['alert'] == "berhasil") {
+                        ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4><i class="icon fa fa-check"></i> Success</h4>
                         Berhasil Disimpan
                     </div>
                     <?php
-                  }else if($_GET['alert']=="berhasilupdate"){
-                    ?>
+                        } else if ($_GET['alert'] == "berhasilupdate") {
+                        ?>
                     <div class="alert alert-success alert-dismissible">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4><i class="icon fa fa-check"></i> Success</h4>
                         Berhasil Update
                     </div>
                     <?php
-                  }
-                }
-                ?>
+                        }
+                    }
+                    ?>
                 </div>
                 <div class="box-body">
 
@@ -83,20 +81,19 @@
                                                 <option value="Pengeluaran">Pengeluaran</option>
                                             </select>
                                         </div>
-
                                         <div class="form-group">
                                             <label>Kategori</label>
                                             <select name="kategori" class="form-control" required="required">
                                                 <option value="">- Pilih -</option>
-                                                <?php 
-                          $kategori = mysqli_query($koneksi,"SELECT * FROM kategori ORDER BY kategori ASC");
-                          while($k = mysqli_fetch_array($kategori)){
-                            ?>
+                                                <?php
+                                                $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori ASC");
+                                                while ($k = mysqli_fetch_array($kategori)) {
+                                                ?>
                                                 <option value="<?php echo $k['kategori_id']; ?>">
                                                     <?php echo $k['kategori']; ?></option>
-                                                <?php 
-                          }
-                          ?>
+                                                <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
 
@@ -114,15 +111,15 @@
                                             <label>Rekening Bank</label>
                                             <select name="bank" class="form-control" required="required">
                                                 <option value="">- Pilih -</option>
-                                                <?php 
-                          $bank = mysqli_query($koneksi,"SELECT * FROM bank");
-                          while($b = mysqli_fetch_array($bank)){
-                            ?>
+                                                <?php
+                                                $bank = mysqli_query($koneksi, "SELECT * FROM bank");
+                                                while ($b = mysqli_fetch_array($bank)) {
+                                                ?>
                                                 <option value="<?php echo $b['bank_id']; ?>">
                                                     <?php echo $b['bank_nama']; ?></option>
-                                                <?php 
-                          }
-                          ?>
+                                                <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
 
@@ -136,7 +133,6 @@
                             </div>
                         </div>
                     </form>
-
                     <div class="table-responsive">
                         <table class="table table-bordered table-striped" id="table-datatable">
                             <thead>
@@ -150,78 +146,77 @@
                                     <th width="10%" rowspan="2">SALDO</th>
                                     <th rowspan="2" width="10%" class="text-center">OPSI</th>
                                 </tr>
-
                             </thead>
 
                             <tbody>
                                 <?php include '../koneksi.php';
-$no = 1;
+                                $no = 1;
 
-// Calculate the total income
-$total_pemasukan = 0;
-$data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pemasukan'");
-while ($d = mysqli_fetch_array($data)) {
-  $total_pemasukan += $d['transaksi_nominal'];
-}
+                                // Calculate the total income
+                                $total_pemasukan = 0;
+                                $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pemasukan'");
+                                while ($d = mysqli_fetch_array($data)) {
+                                    $total_pemasukan += $d['transaksi_nominal'];
+                                }
 
-// Calculate the total expenditure
-$total_pengeluaran = 0;
-$data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pengeluaran'");
-while ($d = mysqli_fetch_array($data)) {
-  $total_pengeluaran += $d['transaksi_nominal'];
-}
+                                // Calculate the total expenditure
+                                $total_pengeluaran = 0;
+                                $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pengeluaran'");
+                                while ($d = mysqli_fetch_array($data)) {
+                                    $total_pengeluaran += $d['transaksi_nominal'];
+                                }
 
-// Calculate the balance
-$saldo = $total_pemasukan - $total_pengeluaran;
+                                // Calculate the balance
+                                $saldo = $total_pemasukan - $total_pengeluaran;
 
-// Iterate over the transactions and update the balance
-$data = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY transaksi_id ASC");
-while ($d = mysqli_fetch_array($data)) {
-  if ($d['transaksi_jenis'] == 'Pengeluaran') {
-    // Subtract the amount of the transaction from the balance
-    $saldo -= $d['transaksi_nominal'];
-  } else if ($d['transaksi_jenis'] == 'Pemasukan') {
-    // Subtract the amount of the transaction from the balance
-    $saldo += $d['transaksi_nominal'];
-  }
-  ?>
+                                // Iterate over the transactions and update the balance
+                                $data = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY transaksi_id ASC");
+                                while ($d = mysqli_fetch_array($data)) {
+                                    if ($d['transaksi_jenis'] == 'Pengeluaran') {
+                                        // Subtract the amount of the transaction from the balance
+                                        $saldo -= $d['transaksi_nominal'];
+                                    } else if ($d['transaksi_jenis'] == 'Pemasukan') {
+                                        // Subtract the amount of the transaction from the balance
+                                        $saldo += $d['transaksi_nominal'];
+                                    }
+                                ?>
                                 <tr>
                                     <td class="text-center"><?php echo $no++; ?></td>
                                     <td class="text-center">
                                         <?php
-  $tanggal = date('d-M-y', strtotime($d['transaksi_tanggal']));
-  $tanggal = str_replace(
-    ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-    ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-    $tanggal
-  );
-  echo $tanggal; // contoh hasil: "03-Jan-21"
-?>
+                                            $tanggal = date('d-M-y', strtotime($d['transaksi_tanggal']));
+                                            $tanggal = str_replace(
+                                                ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                                                ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                                                $tanggal
+                                            );
+                                            echo $tanggal; // contoh hasil: "03-Jan-21"
+                                            ?>
                                     </td>
                                     <td><?php echo $d['transaksi_keterangan']; ?></td>
                                     <td><?php echo $d['kode_rekening']; ?></td>
                                     <td class="text-center">
-                                        <?php 
-                        if($d['transaksi_jenis'] == "Pemasukan"){
-                          echo "Rp. ".number_format($d['transaksi_nominal'])." ,-";
-                        }else{
-                          echo "-";
-                        }
-                        ?>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php 
-                        if($d['transaksi_jenis'] == "Pengeluaran"){
-                          echo "Rp. ".number_format($d['transaksi_nominal'])." ,-";
-                        }else{
-                          echo "-";
-                        }
-                        ?>
+                                        <?php
+                                            if ($d['transaksi_jenis'] == "Pemasukan") {
+                                                echo "Rp. " . number_format($d['transaksi_nominal']) . " ,-";
+                                            } else {
+                                                echo "-";
+                                            }
+                                            ?>
                                     </td>
                                     <td class="text-center">
                                         <?php
-     echo "Rp. ".number_format($saldo)." ,-";
-   ?> </td>
+                                            if ($d['transaksi_jenis'] == "Pengeluaran") {
+                                                echo "Rp. " . number_format($d['transaksi_nominal']) . " ,-";
+                                            } else {
+                                                echo "-";
+                                            }
+                                            ?>
+                                    </td>
+                                    <td class="text-center">
+                                        <?php
+                                            echo "Rp. " . number_format($saldo) . " ,-";
+                                            ?> </td>
                                     <td>
                                         <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                             data-target="#edit_transaksi_<?php echo $d['transaksi_id'] ?>">
@@ -265,12 +260,13 @@ while ($d = mysqli_fetch_array($data)) {
                                                             <select name="jenis" style="width:100%" class="form-control"
                                                                 required="required">
                                                                 <option value="">- Pilih -</option>
-                                                                <option
-                                                                    <?php if($d['transaksi_jenis'] == "Pemasukan"){echo "selected='selected'";} ?>
-                                                                    value="Pemasukan">Pemasukan</option>
-                                                                <option
-                                                                    <?php if($d['transaksi_jenis'] == "Pengeluaran"){echo "selected='selected'";} ?>
-                                                                    value="Pengeluaran">Pengeluaran</option>
+                                                                <option <?php if ($d['transaksi_jenis'] == "Pemasukan") {
+                                                                                echo "selected='selected'";
+                                                                            } ?> value="Pemasukan">Pemasukan</option>
+                                                                <option <?php if ($d['transaksi_jenis'] == "Pengeluaran") {
+                                                                                echo "selected='selected'";
+                                                                            } ?> value="Pengeluaran">Pengeluaran
+                                                                </option>
                                                             </select>
                                                         </div>
 
@@ -279,17 +275,18 @@ while ($d = mysqli_fetch_array($data)) {
                                                             <select name="kategori" style="width:100%"
                                                                 class="form-control" required="required">
                                                                 <option value="">- Pilih -</option>
-                                                                <?php 
-                                      $kategori = mysqli_query($koneksi,"SELECT * FROM kategori ORDER BY kategori ASC");
-                                      while($k = mysqli_fetch_array($kategori)){
-                                        ?>
-                                                                <option
-                                                                    <?php if($d['transaksi_kategori'] == $k['kategori_id']){echo "selected='selected'";} ?>
+                                                                <?php
+                                                                    $kategori = mysqli_query($koneksi, "SELECT * FROM kategori ORDER BY kategori ASC");
+                                                                    while ($k = mysqli_fetch_array($kategori)) {
+                                                                    ?>
+                                                                <option <?php if ($d['transaksi_kategori'] == $k['kategori_id']) {
+                                                                                    echo "selected='selected'";
+                                                                                } ?>
                                                                     value="<?php echo $k['kategori_id']; ?>">
                                                                     <?php echo $k['kategori']; ?></option>
-                                                                <?php 
-                                      }
-                                      ?>
+                                                                <?php
+                                                                    }
+                                                                    ?>
                                                             </select>
                                                         </div>
 
@@ -307,32 +304,23 @@ while ($d = mysqli_fetch_array($data)) {
                                                                 class="form-control"
                                                                 rows="4"><?php echo $d['transaksi_keterangan'] ?></textarea>
                                                         </div>
-
-                                                        <div class="form-group" style="width:100%;margin-bottom:20px">
-                                                            <label>Upload File</label>
-                                                            <input type="file" name="trnfoto" class="form-control"><br>
-                                                            <!-- <small><?php echo $d['transaksi_foto'] ?></small> -->
-                                                            <p class="help-block">Bila File
-                                                                <?php echo "<a class='fancybox btn btn-xs btn-primary' target=_blank href='../gambar/bukti/$d[transaksi_foto]'>$d[transaksi_foto]</a>";?>
-                                                                tidak dirubah kosongkan saja</p>
-                                                        </div>
-
                                                         <div class="form-group" style="width:100%;margin-bottom:20px">
                                                             <label>Rekening Bank</label>
                                                             <select name="bank" class="form-control" required="required"
                                                                 style="width:100%">
                                                                 <option value="">- Pilih -</option>
-                                                                <?php 
-                                      $bank = mysqli_query($koneksi,"SELECT * FROM bank");
-                                      while($b = mysqli_fetch_array($bank)){
-                                        ?>
-                                                                <option
-                                                                    <?php if($d['transaksi_bank'] == $b['bank_id']){echo "selected='selected'";} ?>
+                                                                <?php
+                                                                    $bank = mysqli_query($koneksi, "SELECT * FROM bank");
+                                                                    while ($b = mysqli_fetch_array($bank)) {
+                                                                    ?>
+                                                                <option <?php if ($d['transaksi_bank'] == $b['bank_id']) {
+                                                                                    echo "selected='selected'";
+                                                                                } ?>
                                                                     value="<?php echo $b['bank_id']; ?>">
                                                                     <?php echo $b['periode']; ?></option>
-                                                                <?php 
-                                      }
-                                      ?>
+                                                                <?php
+                                                                    }
+                                                                    ?>
                                                             </select>
                                                         </div>
 
@@ -404,20 +392,16 @@ while ($d = mysqli_fetch_array($data)) {
 
                                     </td>
                                 </tr>
-                                <?php 
-                  }
-                  ?>
+                                <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
                 </div>
-
         </div>
     </section>
 </div>
 </section>
-
 </div>
-
-
 <?php include 'footer.php'; ?>
