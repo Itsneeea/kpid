@@ -109,18 +109,11 @@
                                         $no = 1;
                                         $tarif_nphd = 0;
                                         $transaksi_nominal = 0;
-                                        $data = mysqli_query($koneksi, "
-SELECT DISTINCT nphd.id_nphd, nphd.tarif_nphd, kategori.kategori_id, kategori.kategori, transaksi.transaksi_nominal, transaksi.transaksi_jenis 
-FROM nphd
-LEFT JOIN kategori
-ON nphd.kategori_nphd = kategori.kategori_id
-LEFT JOIN transaksi
-ON transaksi.transaksi_nominal = kategori.kategori_id
-WHERE transaksi.transaksi_jenis='pengeluaran' AND nphd.bank_id = '$periode'
-");
+                                        $data = mysqli_query($koneksi, "SELECT nphd.id_nphd, SUM(nphd.tarif_nphd) AS tarif_nphd, kategori.kategori_id, kategori.kategori, SUM(transaksi.transaksi_nominal) AS transaksi_nominal, transaksi.transaksi_jenis, nphd.bank_id FROM nphd LEFT JOIN kategori ON nphd.kategori_nphd = kategori.kategori_id LEFT JOIN transaksi ON transaksi.transaksi_kategori = kategori.kategori_id WHERE transaksi.transaksi_jenis='Pengeluaran' AND nphd.bank_id='$periode' GROUP BY kategori.kategori_id");
                                         while ($d = mysqli_fetch_array($data)) {
                                             $tarif_nphd = $d['tarif_nphd'];
                                             $transaksi_nominal = $d['transaksi_nominal'];
+                                            $persentase = ($transaksi_nominal / $tarif_nphd) * 100;
                                         ?>
                                             <tr>
                                                 <td width="5%">
@@ -130,14 +123,14 @@ WHERE transaksi.transaksi_jenis='pengeluaran' AND nphd.bank_id = '$periode'
                                                     <?php echo $d['kategori']; ?>
                                                 </td>
                                                 <td>
-                                                    <?php echo $d['transaksi_nominal']; ?>
-                                                </td>
-                                                <td>
-                                                    <?php echo $d['tarif_nphd']; ?>
-                                                </td>
+                                                    <?php echo "Rp. " . number_format($transaksi_nominal) . " ,-"; ?>
                                                 </td>
                                                 <td>
                                                     <?php echo "Rp. " . number_format($tarif_nphd) . " ,-"; ?>
+                                                </td>
+                                                </td>
+                                                <td>
+                                                    <?php echo round($persentase, 2) . "%"; ?>
                                                 </td>
                                             </tr>
 
