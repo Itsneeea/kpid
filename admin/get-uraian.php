@@ -17,4 +17,3 @@
 
   // Mengirim data uraian dalam bentuk JSON ke client
   echo json_encode($data);
-?>

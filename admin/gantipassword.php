@@ -17,9 +17,9 @@
     <div class="row">
       <section class="col-lg-5">
 
-        <?php 
-        if(isset($_GET['alert'])){
-          if($_GET['alert'] == "sukses"){
+        <?php
+        if (isset($_GET['alert'])) {
+          if ($_GET['alert'] == "sukses") {
             echo "<div class='alert alert-success'>Password anda berhasil diganti!</div>";
           }
         }

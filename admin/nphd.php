@@ -1,5 +1,5 @@
-<?php 
-include'header.php';?>
+<?php
+include 'header.php'; ?>
 
 <div class="content-wrapper">
 
@@ -14,49 +14,46 @@ include'header.php';?>
                 <div class="box box-info">
                     <div class="box-header">
                         <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                data-target="#exampleModal">
+                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fafa-plus"></i>&nbspTambah Anggaran
-                            </button><a href="nphd_print.php" target="_blank" class="btn btn-sm btn-primary"><i
-                                    class="fa fa-print"></i> &nbsp
+                            </button><a href="nphd_print.php" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-print"></i> &nbsp
                                 PRINT</a>
                         </div>
                     </div>
                     <?php
-if(isset($_GET['alert'])){
-if($_GET['alert']=='gagal'){
-?>
+                    if (isset($_GET['alert'])) {
+                        if ($_GET['alert'] == 'gagal') {
+                    ?>
+                        <?php
+                        } else if ($_GET['alert'] == "berhasil") {
+                        ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4>
+                                    <i class="icon fafa-check"></i>Success
+                                </h4>
+                                Berhasil Disimpan
+                            </div>
+                        <?php
+                        } else if ($_GET['alert'] == "berhasil update") {
+                        ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                                    ×</button>
+                                <h4>
+                                    <i class="icon fafa-check"></i>Success
+                                </h4>
+                                Berhasil Update
+                            </div>
                     <?php
-}else if($_GET['alert']=="berhasil"){
-?>
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <h4>
-                            <i class="icon fafa-check"></i>Success
-                        </h4>
-                        Berhasil Disimpan
-                    </div>
-                    <?php
-}else if($_GET['alert']=="berhasil update"){
-?>
-                    <div class="alert alert-success alert-dismissible">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                            ×</button>
-                        <h4>
-                            <i class="icon fafa-check"></i>Success
-                        </h4>
-                        Berhasil Update
-                    </div>
-                    <?php
-}
-}
-?>
+                        }
+                    }
+                    ?>
                 </div>
         </div>
         <div class="modal-body">
             <form action="nphd_act.php" method="post" enctype="multipart/form-data">
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -74,16 +71,16 @@ if($_GET['alert']=='gagal'){
                                         -Pilih-
                                     </option>
                                     <?php
-include'../koneksi.php';
-$kategori=mysqli_query($koneksi,"SELECT*FROM kategori ORDER BY kategori ASC");
-while($k=mysqli_fetch_array($kategori)){
-?>
-                                    <option value="<?php echo $k['kategori_id'];?>">
-                                        <b><?php echo $k['kategori'];?></b>
-                                    </option>
+                                    include '../koneksi.php';
+                                    $kategori = mysqli_query($koneksi, "SELECT*FROM kategori ORDER BY kategori ASC");
+                                    while ($k = mysqli_fetch_array($kategori)) {
+                                    ?>
+                                        <option value="<?php echo $k['kategori_id']; ?>">
+                                            <b><?php echo $k['kategori']; ?></b>
+                                        </option>
                                     <?php
-}
-?>
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <label>Anggaran</label>
@@ -92,38 +89,34 @@ while($k=mysqli_fetch_array($kategori)){
                                     -Pilih-
                                 </option>
                                 <?php
-include'../koneksi.php';
-$periode=mysqli_query($koneksi,"SELECT*FROM bank ORDER BY periode ASC");
-while($k=mysqli_fetch_array($periode)){
-?>
-                                <option value="<?php echo $k['bank_id'];?>">
-                                    <b><?php echo $k['periode'];?></b>
-                                </option>
+                                include '../koneksi.php';
+                                $periode = mysqli_query($koneksi, "SELECT*FROM bank ORDER BY periode ASC");
+                                while ($k = mysqli_fetch_array($periode)) {
+                                ?>
+                                    <option value="<?php echo $k['bank_id']; ?>">
+                                        <b><?php echo $k['periode']; ?></b>
+                                    </option>
                                 <?php
-}
-?>
+                                }
+                                ?>
                             </select>
 
                             <div class="form-group">
                                 <label>Keterangan</label>
-                                <input type="text" name="uraian_nphd" class="form-control"
-                                    placeholder="Masukkan Keterangan..">
+                                <input type="text" name="uraian_nphd" class="form-control" placeholder="Masukkan Keterangan..">
                             </div>
                             <div class="form-group">
                                 <label>Volume</label>
-                                <input type="number" name="volume_nphd" class="form-control"
-                                    placeholder="Masukkan Volume..">
+                                <input type="number" name="volume_nphd" class="form-control" placeholder="Masukkan Volume..">
                             </div>
                             <div class="form-group">
                                 <label>Satuan</label>
-                                <input type="text" name="satuan_nphd" class="form-control"
-                                    placeholder="Masukkan Satuan..">
+                                <input type="text" name="satuan_nphd" class="form-control" placeholder="Masukkan Satuan..">
                             </div>
                             <div class="form-group">
                                 <label>Tarif
                                 </label>
-                                <input type="number" name="tarif_nphd" class="form-control"
-                                    placeholder="Masukkan Tarif..">
+                                <input type="number" name="tarif_nphd" class="form-control" placeholder="Masukkan Tarif..">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">
@@ -173,53 +166,50 @@ while($k=mysqli_fetch_array($periode)){
                 </thead>
                 <tbody>
                     <?php
-include'../koneksi.php';
-$no=1;
-$tarif_nphd=0;
-$volume_nphd=0;
-$data=mysqli_query($koneksi,"SELECT*FROM nphd");
-while($d = mysqli_fetch_array($data)){
-    $tarif_nphd = $d['tarif_nphd'];
-    $volume_nphd = $d['volume_nphd'];
-?>
-                    <tr>
-                        <td width="5%">
-                            <?php echo $no++;?>
-                        </td>
-                        <td>
-                            <?php echo $d['uraian_nphd'];?>
-                        </td>
-                        <td>
-                            <?php echo $d['volume_nphd'];?>
-                        </td>
-                        <td>
-                            <?php echo $d['satuan_nphd'];?>
-                        </td>
-                        <td>
-                            <?php echo "".number_format($tarif_nphd)."";?>
-                        </td>
-                        </td>
-                        <td>
-                            <?php echo "Rp. ".number_format($tarif_nphd * $volume_nphd)." ,-"; ?>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                data-target="#edit_nphd_<?php echo $d['id_nphd']?>">
-                                <i class="fa fa-cog">
-                                </i>
-                            </button>
+                    include '../koneksi.php';
+                    $no = 1;
+                    $tarif_nphd = 0;
+                    $volume_nphd = 0;
+                    $data = mysqli_query($koneksi, "SELECT*FROM nphd");
+                    while ($d = mysqli_fetch_array($data)) {
+                        $tarif_nphd = $d['tarif_nphd'];
+                        $volume_nphd = $d['volume_nphd'];
+                    ?>
+                        <tr>
+                            <td width="5%">
+                                <?php echo $no++; ?>
+                            </td>
+                            <td>
+                                <?php echo $d['uraian_nphd']; ?>
+                            </td>
+                            <td>
+                                <?php echo $d['volume_nphd']; ?>
+                            </td>
+                            <td>
+                                <?php echo $d['satuan_nphd']; ?>
+                            </td>
+                            <td>
+                                <?php echo "" . number_format($tarif_nphd) . ""; ?>
+                            </td>
+                            </td>
+                            <td>
+                                <?php echo "Rp. " . number_format($tarif_nphd * $volume_nphd) . " ,-"; ?>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#edit_nphd_<?php echo $d['id_nphd'] ?>">
+                                    <i class="fa fa-cog">
+                                    </i>
+                                </button>
 
-                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                data-target="#hapus_nphd_<?php echo$d['id_nphd']?>">
-                                <i class="fa fa-trash">
-                                </i>
-                            </button>
-                        </td>
-                    </tr>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapus_nphd_<?php echo $d['id_nphd'] ?>">
+                                    <i class="fa fa-trash">
+                                    </i>
+                                </button>
+                            </td>
+                        </tr>
                 </tbody>
                 <form action="nphd_update.php" method="post" enctype="multipart/form-data">
-                    <div class="modal fade" id="edit_nphd_<?php echo $d['id_nphd'] ?>" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="edit_nphd_<?php echo $d['id_nphd'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -237,16 +227,16 @@ while($d = mysqli_fetch_array($data)){
                                                 -Pilih-
                                             </option>
                                             <?php
-include'../koneksi.php';
-$kategori=mysqli_query($koneksi,"SELECT*FROM kategori ORDER BY kategori ASC");
-while($k=mysqli_fetch_array($kategori)){
-?>
-                                            <option value="<?php echo $k['kategori_id'];?>">
-                                                <?php echo $k['kategori'];?>
-                                            </option>
+                                            include '../koneksi.php';
+                                            $kategori = mysqli_query($koneksi, "SELECT*FROM kategori ORDER BY kategori ASC");
+                                            while ($k = mysqli_fetch_array($kategori)) {
+                                            ?>
+                                                <option value="<?php echo $k['kategori_id']; ?>">
+                                                    <?php echo $k['kategori']; ?>
+                                                </option>
                                             <?php
-                                                            }
-?>
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <label>Anggaran</label>
@@ -274,25 +264,21 @@ while($k=mysqli_fetch_array($periode)){
                                     </div>
                                     <div class="form-group">
                                         <label>Volume</label>
-                                        <input type="number" name="volume_nphd" class="form-control"
-                                            placeholder="Masukkan Volume.." value="<?php echo $d['volume_nphd'] ?>">
+                                        <input type="number" name="volume_nphd" class="form-control" placeholder="Masukkan Volume.." value="<?php echo $d['volume_nphd'] ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Satuan</label>
-                                        <input type="text" name="satuan_nphd" class="form-control"
-                                            placeholder="Masukkan Satuan.." value="<?php echo $d['satuan_nphd'] ?>">
+                                        <input type="text" name="satuan_nphd" class="form-control" placeholder="Masukkan Satuan.." value="<?php echo $d['satuan_nphd'] ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Tarif</label>
-                                        <input type="number" name="tarif_nphd" class="form-control"
-                                            placeholder="Masukkan Tarif.." value="<?php echo $d['tarif_nphd'] ?>">
+                                        <input type="number" name="tarif_nphd" class="form-control" placeholder="Masukkan Tarif.." value="<?php echo $d['tarif_nphd'] ?>">
                                     </div>
 
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Tutup</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                         <button type="submit" class="btn btn-primary">Simpan</button>
                                     </div>
                                 </div>
@@ -301,8 +287,7 @@ while($k=mysqli_fetch_array($periode)){
                     </div>
         </div>
         </form>
-        <div class="modal fade" id="hapus_nphd_<?php echo $d['id_nphd'] ?>" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="hapus_nphd_<?php echo $d['id_nphd'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -326,28 +311,28 @@ while($k=mysqli_fetch_array($periode)){
         </div>
         </td>
         </tr>
-        <?php
-}
-?>
-        </tbody>
-        </table>
+    <?php
+                    }
+    ?>
+    </tbody>
+    </table>
 </div>
 </div>
 </div>
 </div>
 </section>
 <script>
-function showUraian() {
-    // get the selected value of kategori
-    var kategoriId = document.getElementById("kategori").value;
+    function showUraian() {
+        // get the selected value of kategori
+        var kategoriId = document.getElementById("kategori").value;
 
-    // show or hide the uraian select element based on the kategori selection
-    var uraianForm = document.getElementById("uraian-form");
-    if (kategoriId === "") {
-        uraianForm.style.display = "none";
-    } else {
-        uraianForm.style.display = "block";
+        // show or hide the uraian select element based on the kategori selection
+        var uraianForm = document.getElementById("uraian-form");
+        if (kategoriId === "") {
+            uraianForm.style.display = "none";
+        } else {
+            uraianForm.style.display = "block";
+        }
     }
-}
 </script>
 <?php include 'footer.php'; ?>

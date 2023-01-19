@@ -1,4 +1,4 @@
-<?php 
+<?php
 include '../koneksi.php';
 $id  = $_POST['id'];
 $kategori  = $_POST['kategori'];
