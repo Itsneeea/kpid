@@ -1,365 +1,234 @@
+ <?php
+         include '../koneksi.php';?>
  <!DOCTYPE html>
  <html>
 
  <head>
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <title>Laporan Aplikasi Keuangan</title>
+     <title>Laporan Anggaran NPHD</title>
+     <style>
+     .no-border td,
+     .no-border th {
+         border: 0;
+     }
 
-     <style type="text/css">
-         html {
-             font-family: Calibri, Arial, Helvetica, sans-serif;
-             font-size: 11pt;
-             background-color: white
-         }
+     .body {
+         font-family: Arial;
+     }
 
-         a.comment-indicator:hover+div.comment {
-             background: #ffd;
-             position: absolute;
-             display: block;
-             border: 1px solid black;
-             padding: 0.5em
-         }
+     .table {
+         border-collapse: collapse;
+     }
 
-         a.comment-indicator {
-             background: red;
-             display: inline-block;
-             border: 1px solid black;
-             width: 0.5em;
-             height: 0.5em
+     @media print {
+         .no-print {
+             display: none;
          }
-
-         div.comment {
-             display: none
-         }
-
-         table {
-             border-collapse: collapse;
-             page-break-after: always
-         }
-
-         .gridlines td {
-             border: 1px dotted black
-         }
-
-         .gridlines th {
-             border: 1px dotted black
-         }
-
-         .b {
-             text-align: center
-         }
-
-         .e {
-             text-align: center
-         }
-
-         .f {
-             text-align: right
-         }
-
-         .inlineStr {
-             text-align: left
-         }
-
-         .n {
-             text-align: right
-         }
-
-         .s {
-             text-align: left
-         }
-
-         td.style0 {
-             vertical-align: bottom;
-             border-bottom: none #000000;
-             border-top: none #000000;
-             border-left: none #000000;
-             border-right: none #000000;
-             color: #000000;
-             font-family: 'Calibri';
-             font-size: 11pt;
-             background-color: white
-         }
-
-         th.style0 {
-             vertical-align: bottom;
-             border-bottom: none #000000;
-             border-top: none #000000;
-             border-left: none #000000;
-             border-right: none #000000;
-             color: #000000;
-             font-family: 'Calibri';
-             font-size: 11pt;
-             background-color: white
-         }
-
-         td.style1 {
-             vertical-align: middle;
-             text-align: center;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         th.style1 {
-             vertical-align: middle;
-             text-align: center;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         td.style2 {
-             vertical-align: bottom;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         th.style2 {
-             vertical-align: bottom;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         td.style3 {
-             vertical-align: bottom;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Calibri';
-             font-size: 11pt;
-             background-color: white
-         }
-
-         th.style3 {
-             vertical-align: bottom;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Calibri';
-             font-size: 11pt;
-             background-color: white
-         }
-
-         td.style4 {
-             vertical-align: bottom;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             font-weight: bold;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         th.style4 {
-             vertical-align: bottom;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             font-weight: bold;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         td.style5 {
-             vertical-align: middle;
-             text-align: left;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         td.style6 {
-             vertical-align: middle;
-             text-align: center;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         th.style5 {
-             vertical-align: middle;
-             text-align: center;
-             border-bottom: 1px solid #000000 !important;
-             border-top: 1px solid #000000 !important;
-             border-left: 1px solid #000000 !important;
-             border-right: 1px solid #000000 !important;
-             color: #000000;
-             font-family: 'Times New Roman';
-             font-size: 12pt;
-             background-color: white
-         }
-
-         table.sheet0 col.col0 {
-             width: 15.58888871pt
-         }
-
-         table.sheet0 col.col1 {
-             width: 16.26666648pt
-         }
-
-         table.sheet0 col.col2 {
-             width: 14.91111094pt
-         }
-
-         table.sheet0 col.col3 {
-             width: 15.58888871pt
-         }
-
-         table.sheet0 col.col4 {
-             width: 14.91111094pt
-         }
-
-         table.sheet0 col.col5 {
-             width: 87.43333233pt
-         }
-
-         table.sheet0 col.col6 {
-             width: 86.07777679pt
-         }
-
-         table.sheet0 col.col7 {
-             width: 42pt
-         }
-
-         table.sheet0 col.col8 {
-             width: 42pt
-         }
-
-         table.sheet0 col.col9 {
-             width: 42pt
-         }
-
-         table.sheet0 col.col10 {
-             width: 51.51111052pt
-         }
-
-         table.sheet0 tr {
-             height: 15pt
-         }
-
-         table.sheet0 tr.row0 {
-             height: 15.75pt
-         }
-
-         table.sheet0 tr.row1 {
-             height: 31.5pt
-         }
-
-         table.sheet0 tr.row2 {
-             height: 31.5pt
-         }
-
-         table.sheet0 tr.row3 {
-             height: 15.75pt
-         }
-
-         table.sheet0 tr.row4 {
-             height: 15.75pt
-         }
-
-         table.sheet0 tr.row5 {
-             height: 15.75pt
-         }
-
-         table.sheet0 tr.row6 {
-             height: 15.75pt
-         }
-
-         table.sheet0 tr.row7 {
-             height: 15.75pt
-         }
+     }
      </style>
  </head>
 
- <body>
-     <center>
-         <h4>LAPORAN</h4>
-         <h4>SISTEM IFORMASI KEUANGAN</h4>
-     </center>
-     <style>
-         @page {
-             margin-left: 0.7in;
-             margin-right: 0.7in;
-             margin-top: 0.75in;
-             margin-bottom: 0.75in;
-         }
 
-         body {
-             margin-left: 0.7in;
-             margin-right: 0.7in;
-             margin-top: 0.75in;
-             margin-bottom: 0.75in;
-         }
-     </style>
-     <div class="table-responsive">
-         <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines" width="100%">
-             <col class="col0">
-             <col class="col1">
-             <col class="col2">
-             <tbody>
-                 <tr class="row0">
-                     <td class="column0 style6 s style6" colspan="5" rowspan="2"><b>Kode Rekening</b></td>
-                     <td class="column5 style6 s style6" colspan="2" rowspan="2"><b>Uraian</b></td>
-                     <td class="column7 style5 s style5" colspan="3"><b>Rincian Perhitungan</b></td>
-                     <td class="column10 style5 s style5" rowspan="2"><b>Jumlah</b></td>
-                 </tr>
-                 <tr class="row1">
-                     <td class="column7 style1 s"><b>Volume</b></td>
-                     <td class="column8 style1 s"><b>Satuan</b></td>
-                     <td class="column9 style1 s"><b>Harga Satuan</b></td>
-                 </tr>
-                 <tr class="row2">
-                     <td class="column0 style5 n style5" colspan="5"><b>1</b></td>
-                     <td class="column2 style1 n" colspan="2"><b>2</b></td>
-                     <td class="column7 style1 n"><b>3</b></td>
-                     <td class="column8 style1 n"><b>4</b></td>
-                     <td class="column9 style1 n"><b>5</b></td>
-                     <td class="column10 style1 s"><b>6=(3 x 5)</b></td>
-                 </tr><?php include '../koneksi.php';
+ <body>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="10%" style="border:0;">
+             <center>
+                 <img src="../assets/kalsel.png" width="55" height="70" align="left">
+         </td>
+         </center>
+         <?php
+         include '../koneksi.php';
+                $periode = mysqli_query($koneksi, "SELECT * FROM bank");
+                if (isset($_GET['periode'])) {
+                    $periode = $_GET['periode'];
+                ?>
+         <td width="80%" style="border:0;"><b>
+                 <center>RENCANA KEGIATAN DAN RINCIAN ANGGARAN HIBAH<br>KOMISI PENYIARAN INDONESIA
+                     DAERAH KALIMANTAN SELATAN <br>TAHUN ANGGARAN
+                     <?php
+                     
+                    $k = mysqli_query($koneksi, "select * from bank where bank_id='$periode'");
+                    $kk = mysqli_fetch_assoc($k);
+                    echo $kk['bank_pemilik']; ?>
+             </b>
+             </center>
+         </td><?php }?>
+         <td width="10%">
+             <center>
+                 <font size="1px">Formulir</font>
+                 <br />
+                 <font size="1.2px "><b>RKA-KPID</b></font><br />
+                 <font size="1px">2.2.1</font>
+         </td>
+         </center>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="2" width="100%">
+         <tr>
+             <td width="40%" style="border:0;">
+                 <small> Urusan Pemerintahan
+                     <br /> Organisasi
+                     <br /> Program
+                     <br /> Kegiatan
+                     <br /> Lokasi Kegiatan
+                     <br /> Jumlah Anggaran Tahun <?php echo $kk['bank_pemilik'];?>
+                 </small>
+             </td>
+             <td width="60%" style="border:0;"><small>
+                     : Komunikasi dan Informasi<br />
+                     : Komisi Penyiaran Daerah Kalimantan Selatan<br />
+                     : Pengembangan dan Pengelolaan Komunikasi Publik<br />
+                     : Mendukung Pelaksanaan Tugas dan Fungsi KPID Kalsel<br />
+                     : Provinsi dan Kabupaten/Kota<br />
+                     : <b> <?php
+include '../koneksi.php';
+$query = "SELECT tarif_nphd FROM nphd WHERE id_nphd = '1'";
+$data = mysqli_query($koneksi, $query);
+if(mysqli_num_rows($data) > 0){
+    while($row = mysqli_fetch_assoc($data)){
+        echo "Rp. ".number_format($row['tarif_nphd']).",-";
+    }
+}else{
+    echo "No data found";
+}
+?></small></b>
+             </td>
+         </tr>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <font size="1pt">
+             <th width="30%">
+                 Indikator
+             </th>
+             <th width="40%">
+                 <center>Tolak Ukur Kinerja</center>
+             </th>
+             <th width="30%">
+                 <center>Target Kinerja</center>
+             </th>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="30%">
+             Capaian Program
+         </td>
+         <td width="40%">
+             : Pelaporan Capaian Kinerja dan Keuangan
+         </td>
+         <td width="30%">
+             <center>100%</center>
+         </td>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="30%">
+             Masukan
+         </td>
+         <td width="40%">
+             : Dana yang Tersedia
+         </td>
+         <td width="30%">
+             <center><b> <?php
+include '../koneksi.php';
+$query = "SELECT tarif_nphd FROM nphd WHERE id_nphd = '1'";
+$data = mysqli_query($koneksi, $query);
+if(mysqli_num_rows($data) > 0){
+    while($row = mysqli_fetch_assoc($data)){
+        echo "Rp. ".number_format($row['tarif_nphd']).",-";
+    }
+}else{
+    echo "No data found";
+}
+?></b></center>
+         </td>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="30%">
+             Keluaran
+         </td>
+         <td width="40%">
+             : Tersedianya Anggaran Pelaksanaan Tugas KPID Kalsel
+         </td>
+         <td width="30%">
+             <center></center>
+         </td>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="30%">
+             Hasil
+         </td>
+         <td width="40%">
+             : Terlaksananya Tugas dan Fungsi KPID Kalsel
+         </td>
+         <td width="30%">
+             <center>100%</center>
+         </td>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="30%">
+             Kelompok Sasaran Kegiatan
+         </td>
+         <td width="40%">
+             : Provinsi Kalimantan Selatan dan Kabupaten/Kota
+         </td>
+         <td width="30%">
+             <center>100%</center>
+         </td>
+     </table>
+     <table border=" 1" cellpadding="4" cellspacing="0" width="100%">
+         <td width="5pt" style="border:0;">
+             <center><b>Rincian Anggaran Belanja Langsung
+                     <br>Menurut Program dan Per Kegiatan Satuan Kerja Perangkat Daerah</b>
+             </center>
+         </td>
+         </font>
+     </table>
+
+     <table border=" 1" cellpadding="4" cellspacing="0" width="100%">
+         <tbody>
+             <tr>
+                 <td colspan="5" rowspan="2" width="5px"><b>
+                         <center>Kode Rekening</center>
+                     </b></td>
+                 <td colspan="2" rowspan="2"><b>
+                         <center>Uraian</center>
+                     </b></td>
+                 <td colspan="3"><b>
+                         <center>Rincian Perhitungan</center>
+                     </b></td>
+                 <td rowspan="2"><b>
+                         <center>Jumlah (Rp)</center>
+                     </b></td>
+             </tr>
+             <tr>
+                 <td><b>
+                         <center>Volume</center>
+                     </b></td>
+                 <td><b>
+                         <center>Satuan</center>
+                     </b></td>
+                 <td><b>
+                         <center>Harga Satuan</center>
+                     </b></td>
+             </tr>
+             <tr>
+                 <td colspan="5"><b>
+                         <center>1</center>
+                     </b></td>
+                 <td colspan="2"><b>
+                         <center>2</center>
+                     </b></td>
+                 <td><b>
+                         <center>3</center>
+                     </b></td>
+                 <td><b>
+                         <center>4</center>
+                     </b></td>
+                 <td><b>
+                         <center>5</center>
+                     </b></td>
+                 <td><b>
+                         <center>6=(3 x 5)</center>
+                     </b></td>
+             </tr><?php include '../koneksi.php';
                         $no = 1;
                         $tarif_nphd = 0;
                         $volume_nphd = 0;
@@ -369,92 +238,83 @@
                             $tarif_nphd = $d['tarif_nphd'];
                             $volume_nphd = $d['volume_nphd'];
                         ?><tr>
-                         <td class="column0 style1 null"></td>
-                         <td class="column1 style1 null"></td>
-                         <td class="column2 style1 null"></td>
-                         <td class="column3 style1 null"></td>
-                         <td class="column4 style1 null"></td>
-                         <td class="column5 style5 n style5" colspan="2"><?php echo $d['uraian_nphd'];
-                                                                            ?></td>
-                         <td><?php echo $d['volume_nphd'];
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td colspan="2"><?php echo $d['uraian_nphd'];?></td>
+                 <td align="right">
+                     <?php echo $d['volume_nphd'];
+                                ?>
+                 </td>
+                 <td align="right"><?php echo $d['satuan_nphd'];
                                 ?></td>
-                         <td><?php echo $d['satuan_nphd'];
+                 <td align="right"><?php echo "" . number_format($tarif_nphd) . "";
                                 ?></td>
-                         <td><?php echo "" . number_format($tarif_nphd) . "";
-                                ?></td>
-                         <td><?php echo "Rp. " . number_format($tarif_nphd * $volume_nphd) . " ,-";
+                 <td align="right"><?php echo "" . number_format($tarif_nphd * $volume_nphd) . "";
                                 ?></td><?php
                                     }
 
                                         ?>
-                     </tr>
-             </tbody>
-         </table>
-         <div id="page-container">
-             <div id="pf1" class="pf w0 h0" data-page-no="1">
-                 <div class="pc pc1 w0 h0"><img class="bi x0 y0 w1 h1" alt=""
-                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABKgAAAaVCAIAAACQxGAoAAAACXBIWXMAABYlAAAWJQFJUiTwAAAgAElEQVR42uzXQREAAAjDMMC/580Hl0jor5tkAAAA+OskAAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/CQAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8JAAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwkAAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/CQAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg9o+3VMAwAMAzBMQVLg+4Z0ODrZEPIFAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAIDxkwAAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAgPGTAAAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAOMHAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAAAwfgAAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwPgBAABg/AAAADB+AAAAGD8AAACMHwAAAMYPAAAA4wcAAGD8AAAAMH4AAAAYPwAAAIwfAAAAxg8AAADjBwAAgPEDAADA+AEAABg/AAAAjB8AAADGDwAAAOMHAACA8QMAAMD4AQAAYPwAAACMHwAAAMYPAAAA4wcAAIDxAwAAwPgBAABg/AAAADB+AAAAxg8AAADjBwAAgPEDAADA+AEAAGD8AAAAMH4AAAAYPwAAAIwfAACA8QMAAMD4AQAAYPwAAAAwfgAAABg/AAAAjB8AAADGDwAAwDJ1FZYAAAAaSURBVPgBAABg/AAAAFg7fvdMVZIAAAD85QF/HhGITwlb6wAAAABJRU5ErkJggg==" />
-                     <div class="c x1 y1 w2 h2">
-                         <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x3 y1 w2 h2">
-                         <div class="t m0 x4 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0">Banjarbaru $tanggal<span
-                                 class="_ _0"></span> </div>
-                     </div>
-                     <div class="c x1 y3 w2 h2">
-                         <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x3 y3 w2 h2">
-                         <div class="t m0 x5 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x1 y4 w2 h2">
-                         <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x3 y4 w2 h2">
-                         <div class="t m0 x6 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0">Komisi Penyiaran<span class="_ _0"></span>
-                             Indonesia Daerah </div>
-                     </div>
-                     <div class="c x1 y5 w2 h2">
-                         <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x3 y5 w2 h2">
-                         <div class="t m0 x4 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0">Kalimantan Selatan,<span
-                                 class="_ _0"></span> </div>
-                     </div>
-                     <div class="c x1 y6 w2 h4">
-                         <div class="t m0 x2 h3 y7 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                         <div class="t m0 x2 h3 y8 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                         <div class="t m0 x2 h3 y9 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                         <div class="t m0 x2 h3 ya ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                         <div class="t m0 x2 h3 yb ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                         <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x3 y6 w2 h4">
-                         <div class="t m0 x5 h3 y7 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x1 yc w2 h2">
-                         <div class="t m0 x2 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                     <div class="c x3 yc w2 h2">
-                         <div class="t m0 x7 h3 y2 ff1 fs0 fc0 sc0 ls0 ws0">Azhari Fadli, S.Pd.I<span
-                                 class="_ _0"></span>. </div>
-                     </div>
-                     <div class="c x0 yd w3 h0">
-                         <div class="t m0 x1 h3 ye ff1 fs0 fc0 sc0 ls0 ws0"> </div>
-                     </div>
-                 </div>
-                 <div class="pi" data-data='{"ctm":[1.000000,0.000000,0.000000,1.000000,0.000000,0.000000]}'></div>
-             </div>
-         </div>
-         <div class="loading-indicator">
-         </div>
-     </div>
+             </tr>
+             <td colspan="10">Total</td>
+             <td colspan="10">
+                 <left>
+                     <?php
+include '../koneksi.php';
+$query = "SELECT tarif_nphd FROM nphd WHERE id_nphd = '1'";
+$data = mysqli_query($koneksi, $query);
+if(mysqli_num_rows($data) > 0){
+    while($row = mysqli_fetch_assoc($data)){
+        echo "Rp. ".number_format($row['tarif_nphd']).",-";
+    }
+}else{
+    echo "No data found";
+}
+?>
+                 </left>
+             </td>
+         </tbody>
+     </table>
+     <table border="1" cellpadding="4" cellspacing="0" width="100%">
+         <tr>
+             <td width="300px" style="border:0;"></td>
+             <td width="300px" style=" border:0;"></td>
+             <td width="300px" style=" border:0;">
+                 <center>
+                     <p>Banjarbaru, <?php
+                                            $tanggal = date('d F Y');
+                                            $tanggal = str_replace(
+                                                ['January', 'February', 'March', 'April', 'May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
+                                                ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agutus', 'September', 'Oktober', 'November', 'Desember'],
+                                                $tanggal
+                                            );
+                                            echo $tanggal; // contoh hasil: "03-Jan-21"
+                                            ?>
+                     </p>
+                 </center>
+                 <center><b>Komisi Penyiaran Indonesia</b></center>
+                 <center>
+                     <b>Kalimantan Selatan</b>
+                 </center>
+                 </p>
+                 <br>
+                 <br>
+                 <br>
+                 <center>
+                     <p>Azhari Fadli, S.Pd.I.
+                 </center><br>
+
+             </td>
+         </tr>
+     </table>
      <script>
-         window.print();
+     window.print();
 
-         $(document).ready(function() {}
+     $(document).ready(function() {}
 
-         );
+     );
      </script>
  </body>
 

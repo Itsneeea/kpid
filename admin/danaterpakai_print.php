@@ -1,128 +1,190 @@
- <!DOCTYPE html>
- <html>
+<?php include'../koneksi.php'; ?>
+<!DOCTYPE html>
+<html>
 
- <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <title>Laporan Aplikasi Keuangan</title>
-   <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Laporan Anggaran Terpakai</title>
 
- </head>
+    <style type="text/css">
+    .body {
+        font-family: Arial;
+    }
 
- <body>
+    .table {
+        border-collapse: collapse;
+    }
 
-   <center>
-     <h4>LAPORAN</h4>
-     <h4>SISTEM IFORMASI KEUANGAN</h4>
-   </center>
+    @media print {
+        .no-print {
+            display: none;
+        }
+    }
+    </style>
+</head>
 
-
-
-
-   <div class="row">
-     <div class="col-lg-6">
-       <table class="table table-bordered">
-         <tr>
-
-           </td>
-         </tr>
-       </table>
-
-     </div>
-   </div>
-
-   <?php
-    include '../koneksi.php';
-    $data = mysqli_query($koneksi, "SELECT * FROM transaksi");
-    $hutang = mysqli_fetch_all($data, MYSQLI_ASSOC);
-    $total_hutang = array_sum(array_column($hutang, 'hutang_nominal'));
-
-    ?>
-
-   <div class="table-responsive">
-     <table class="table table-bordered table-striped">
-       <thead>
-         <tr>
-           <th width="10%" rowspan="2" class="text-center">TANGGAL</th>
-           <th rowspan="2" class="text-center">PERIHAL</th>
-           <th class="text-center">NO.KAS</th>
-           <th class="text-center">MASUK</th>
-           <th class="text-center">KELUAR</th>
-           <th class="text-center" rowspan="2">SALDO</th>
-         </tr>
-       </thead>
-       <tbody>
-         <?php include '../koneksi.php';
-          $no = 1;
-
-          // Calculate the total income
-          $total_pemasukan = 0;
-          $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pemasukan'");
-          while ($d = mysqli_fetch_array($data)) {
-            $total_pemasukan += $d['transaksi_nominal'];
-          }
-
-          // Calculate the total expenditure
-          $total_pengeluaran = 0;
-          $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pengeluaran'");
-          while ($d = mysqli_fetch_array($data)) {
-            $total_pengeluaran += $d['transaksi_nominal'];
-          }
-
-          // Calculate the balance
-          $saldo = $total_pemasukan - $total_pengeluaran;
-
-          // Iterate over the transactions and update the balance
-          $data = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY transaksi_id ASC");
-          while ($d = mysqli_fetch_array($data)) {
-            if ($d['transaksi_jenis'] == 'Pengeluaran') {
-              // Subtract the amount of the transaction from the balance
-              $saldo -= $d['transaksi_nominal'];
-            } else if ($d['transaksi_jenis'] == 'Pemasukan') {
-              // Subtract the amount of the transaction from the balance
-              $saldo += $d['transaksi_nominal'];
-            }
-          ?>
-           <tr>
-             <td class="text-center"><?php echo date('d-M-y', strtotime($d['transaksi_tanggal'])); ?></td>
-             <td><?php echo $d['transaksi_keterangan']; ?></td>
-             <td class="text-center"><?php echo $d['kode_rekening']; ?></td>
-
-             <td class="text-center">
-               <?php
-                if ($d['transaksi_jenis'] == "Pemasukan") {
-                  echo "Rp. " . number_format($d['transaksi_nominal']) . " ,-";
-                } else {
-                  echo "-";
-                }
+<body>
+    <center>
+        <table>
+            <img src="../assets/logo.png" width="100" heigt="100" align="center">
+            <tr>
+                <td>
+                    <center>
+                        <font size="5"><b>KOMISI PENYIARAN INDONESIA </b></font><br>
+                        <font size="5"><b>DAERAH KALIMANTAN SELATAN</b></font><br>
+                        <font size="4" color="#Ff0000"><b>LEMBAGA NEGARA INDEPENDEN</b></font><br>
+                        <font size="3">Jln. Dharma Praja II No. 2 Kawasan Perkantoran
+                            Provinsi Kalimantan Selatan
+                        </font>
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </center>
+    <hr>
+    <?php
+                $periode = mysqli_query($koneksi, "SELECT * FROM bank");
+                if (isset($_GET['periode'])) {
+                    $periode = $_GET['periode'];
                 ?>
-             </td>
-             <td class="text-center">
-               <?php
-                if ($d['transaksi_jenis'] == "Pengeluaran") {
-                  echo "Rp. " . number_format($d['transaksi_nominal']) . " ,-";
-                } else {
-                  echo "-";
-                }
-                ?>
-             </td>
-             <td class="text-center">
-               <?php
-                echo "Rp. " . number_format($saldo) . " ,-";
-                ?> </td>
-           <?php
-          }
-            ?>
+    <p align="center"> <b>LAPORAN ANGGARAN TERPAKAI T.A <?php
+                                                $k = mysqli_query($koneksi, "select * from bank where bank_id='$periode'");
+                                                $kk = mysqli_fetch_assoc($k);
+                                                echo $kk['bank_pemilik']; ?></b></p>
 
-       </tbody>
+    <table>
+        <tr>
+            <td width="150px">Staff Keuangan</td>
+            <td width="2px">: </td>
+            <td>Drs.Milyani, M. AP</td>
+        </tr>
+        <tr>
+            <td width="100px">Bendahara</td>
+            <td width="4px">: </td>
+            <td>Norliana, S.Sos.i</td>
+        </tr>
+        <tr>
+            <td width="100px">Tahun</td>
+            <td width="4px">: </td>
+            <td> <?php
+                    $tanggal = date('Y');
+                    echo $tanggal; // contoh hasil: "03 January 2021"
+                    ?></td>
+        </tr>
+    </table>
+    <table border="1" cellpadding="4" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th width="5%" rowspan="4">
+                    NO
+                </th>
+                <th width="0%" rowspan="2" class="text-center">
+                    KATEGORI
+                </th>
+                <th rowspan="3" class="text-center">
+                    TOTAL PENGGUNAAN
+                </th>
+                <th width="20%" rowspan="2" class="text-center">
+                    SALDO
+                </th>
+                <th width="20%" rowspan="2" class="text-center">
+                    PERSENTASE
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                                        $no = 1;
+                                        $tarif_nphd = 0;
+                                        $transaksi_nominal = 0;
+                                        $data = mysqli_query($koneksi, "SELECT nphd.id_nphd, SUM(nphd.tarif_nphd) AS tarif_nphd, kategori.kategori_id, kategori.kategori, SUM(transaksi.transaksi_nominal) AS transaksi_nominal, transaksi.transaksi_jenis, nphd.bank_id FROM nphd LEFT JOIN kategori ON nphd.kategori_nphd = kategori.kategori_id LEFT JOIN transaksi ON transaksi.transaksi_kategori = kategori.kategori_id WHERE transaksi.transaksi_jenis='Pengeluaran' AND nphd.bank_id='$periode' GROUP BY kategori.kategori_id");
+                                        while ($d = mysqli_fetch_assoc($data)) {
+                                            $tarif_nphd = $d['tarif_nphd'];
+                                            $transaksi_nominal = $d['transaksi_nominal'];
+                                            $persentase = ($transaksi_nominal / $tarif_nphd) * 100;
+                                        ?>
+            <tr>
+                <td width="5%">
+                    <?php echo $no++; ?>
+                </td>
+                <td>
+                    <?php echo $d['kategori']; ?>
+                </td>
+                <td>
+                    <?php echo "Rp. " . number_format($transaksi_nominal) . " ,-"; ?>
+                </td>
+                <td>
+                    <?php echo "Rp. " . number_format($tarif_nphd) . " ,-"; ?>
+                </td>
+                </td>
+                <td>
+                    <?php echo round($persentase, 2) . "%"; ?>
+                </td>
+            </tr>
+            <?php
+                                        }
+                                        ?>
+        </tbody>
+    </table>
+    <?php
+                                        }
+                                        ?>
+    <br>
+    <br>
+    <br>
+    <br>
 
-     </table>
-   </div>
-   <script>
-     window.print();
-     $(document).ready(function() {});
-   </script>
+    <table width="100%">
+        <tr>
+            <td width="250px">
+                <p>
+                    <br><br>
+                    <br>
+                    <center>Mengetahui,</center>
+                </p>
+                <br>
+                <br>
+                <br>
+                <center>
+                    <p>Drs. Milyani, S.AP<br>
+                </center>
+            </td>
+            <td></td>
+            <td width="250px">
+                <center>
+                    <p>Banjarbaru, <?php
+                                            $tanggal = date('d F Y');
+                                            $tanggal = str_replace(
+                                                ['January', 'February', 'March', 'April', 'May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
+                                                ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agutus', 'September', 'Oktober', 'November', 'Desember'],
+                                                $tanggal
+                                            );
+                                            echo $tanggal; // contoh hasil: "03-Jan-21"
+                                            ?>
+                    </p>
+                </center>
+                <center><b>Komisi Penyiaran Indonesia</b></center>
+                <center>
+                    <b>Kalimantan Selatan</b>
+                </center>
+                <center>Bendahara</center>
+                </p>
+                <br>
+                <br>
+                <br>
+                <center>
+                    <p>Norliana, S.Sos.I
+                </center><br>
+            </td>
+        </tr>
 
- </body>
+    </table>
+    <script>
+    window.print();
+    $(document).ready(function() {});
+    </script>
 
- </html>
+</body>
+
+</html>

@@ -1,132 +1,107 @@
+ <?php
+ include 'fungsi.php';?>
  <!DOCTYPE html>
  <html>
 
  <head>
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-     <title>Laporan Aplikasi Keuangan</title>
-     <link rel="stylesheet" href="../assets/bower_components/bootstrap/dist/css/bootstrap.min.css">
-
+     <title>LAPORAN BUKU KAS UMUM</title>
      <meta http-equiv=Content-Type content="text/html; charset=utf-8">
      <meta name=Generator content="Microsoft Word 15 (filtered)">
      <style>
-         <!--
-         /* Font Definitions */
-         @font-face {
-             font-family: "Cambria Math";
-             panose-1: 2 4 5 3 5 4 6 3 2 4;
-         }
+     .body {
+         font-family: Arial;
+     }
 
-         @font-face {
-             font-family: Calibri;
-             panose-1: 2 15 5 2 2 2 4 3 2 4;
-         }
+     .table {
+         border-collapse: collapse;
+     }
 
-         /* Style Definitions */
-         p.MsoNormal,
-         li.MsoNormal,
-         div.MsoNormal {
-             margin-top: 0in;
-             margin-right: 0in;
-             margin-bottom: 8.0pt;
-             margin-left: 0in;
-             line-height: 107%;
-             font-size: 11.0pt;
-             font-family: "Calibri", sans-serif;
+     @media print {
+         .no-print {
+             display: none;
          }
-
-         .MsoChpDefault {
-             font-family: "Calibri", sans-serif;
-         }
-
-         .MsoPapDefault {
-             margin-bottom: 8.0pt;
-             line-height: 107%;
-         }
-
-         @page WordSection1 {
-             size: 595.3pt 841.9pt;
-             margin: 1.0in 1.0in 1.0in 1.0in;
-         }
-
-         div.WordSection1 {
-             page: WordSection1;
-         }
-
-         /* List Definitions */
-         ol {
-             margin-bottom: 0in;
-         }
-
-         ul {
-             margin-bottom: 0in;
-         }
-         -->
+     }
      </style>
 
  </head>
 
  <body lang=EN-US style='word-wrap:break-word'>
 
-     <div class=WordSection1>
+     <center>
+         <table>
+             <img src="../assets/logo.png" width="100" heigt="100" align="center">
+             <tr>
+                 <td>
+                     <center>
 
-         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span lang=EN-ID style='font-size:12.0pt;line-height:107%'>KOMISI PENYIARAN INDONESIA
-                     DAERAH KALIMANTAN SELATAN</span></b></p>
-
-         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span lang=EN-ID style='font-size:12.0pt;line-height:107%'>BUKU KAS UMUM T.A</span></b></p>
-
-         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center'><b><span lang=EN-ID style='font-size:12.0pt;line-height:107%'>&nbsp;</span></b></p>
-
-         <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>Bendahara                                       : </span></p>
-
-         <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>Wakil Bendahara                            :</span></p>
-
-         <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>Tahun                                               :
-                 <?php
+                         <font size="5"><b>KOMISI PENYIARAN INDONESIA </b></font><br>
+                         <font size="5"><b>DAERAH KALIMANTAN SELATAN</b></font><br>
+                         <font size="4" color="#Ff0000"><b>LEMBAGA NEGARA INDEPENDEN</b></font><br>
+                         <font size="3">Jln. Dharma Praja II No. 2 Kawasan Perkantoran
+                             Provinsi Kalimantan Selatan
+                         </font>
+                     </center>
+                 </td>
+             </tr>
+         </table>
+     </center>
+     <hr>
+     <p align="center"><b>BUKU KAS UMUM T.A <?php echo date('Y');?></b></p>
+     <table>
+         <tr>
+             <td width="150px">Staff Keuangan</td>
+             <td width="2px">: </td>
+             <td>Drs.Milyani, M. AP</td>
+         </tr>
+         <tr>
+             <td width="100px">Bendahara</td>
+             <td width="4px">: </td>
+             <td>Norliana, S.Sos.i</td>
+         </tr>
+         <tr>
+             <td width="100px">Tahun</td>
+             <td width="4px">: </td>
+             <td> <?php
                     $tanggal = date('Y');
                     echo $tanggal; // contoh hasil: "03 January 2021"
-                    ?>
+                    ?></td>
+         </tr>
+     </table>
 
-             </span></p>
-
-         <body>
-             <div class="row">
-                 <div class="col-lg-6">
-                     <table class="table table-bordered">
-                         <tr>
-
-                             </td>
-                         </tr>
-                     </table>
-
-                 </div>
+     <body>
+         <div class="row">
+             <div class="col-lg-6">
+                 <table>
+                     <tr></br>
+                         </td>
+                     </tr>
+                 </table>
              </div>
+         </div>
 
-             <?php
+         <?php
                 include '../koneksi.php';
                 $data = mysqli_query($koneksi, "SELECT * FROM transaksi");
-                $hutang = mysqli_fetch_all($data, MYSQLI_ASSOC);
-                $total_hutang = array_sum(array_column($hutang, 'hutang_nominal'));
-
                 ?>
 
-             <div class="table-responsive">
-                 <table class="table table-bordered table-striped">
-                     <thead>
-                         <tr>
-                             <th width="10%" rowspan="2" class="text-center">TANGGAL</th>
-                             <th rowspan="2" class="text-center">PERIHAL</th>
-                             <th class="text-center">NO.KAS</th>
-                             <th class="text-center">MASUK</th>
-                             <th class="text-center">KELUAR</th>
-                             <th class="text-center" rowspan="2">SALDO</th>
-                         </tr>
-                     </thead>
-                     <tbody>
-                         <?php include '../koneksi.php';
+
+         <table border="1" cellpadding="4" cellspacing="0" width="100%">
+             <thead>
+                 <tr>
+                     <th width="5%" rowspan="2">
+                         <center>TANGGAL</center>
+                     </th>
+                     <th rowspan="2" width="120px">PERIHAL</th>
+                     <th width="5px">No.KAS</th>
+                     <th>MASUK</th>
+                     <th>KELUAR</th>
+                     <th rowspan="2">SALDO</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <?php include '../koneksi.php';
                             $no = 1;
 
                             // Calculate the total income
@@ -157,8 +132,9 @@
                                     $saldo += $d['transaksi_nominal'];
                                 }
                             ?>
-                             <tr>
-                                 <td class="text-center"><?php
+                 <tr>
+                     <td>
+                         <center><?php
                                                             $tanggal = date('d-M-y', strtotime($d['transaksi_tanggal']));
                                                             $tanggal = str_replace(
                                                                 ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -166,112 +142,96 @@
                                                                 $tanggal
                                                             );
                                                             echo $tanggal; // contoh hasil: "03-Jan-21"
-                                                            ?>
+                                                            ?></center>
 
-                                 </td>
-                                 <td><?php echo $d['transaksi_keterangan']; ?></td>
-                                 <td class="text-center"><?php echo $d['kode_rekening']; ?></td>
+                     </td>
+                     <td><?php echo $d['transaksi_keterangan']; ?></td>
+                     <td>
+                         <center><?php echo $d['kode_rekening']; ?></center>
+                     </td>
 
-                                 <td class="text-center">
-                                     <?php
+                     <td class="text-center">
+                         <?php
                                         if ($d['transaksi_jenis'] == "Pemasukan") {
                                             echo "Rp. " . number_format($d['transaksi_nominal']) . " ,-";
                                         } else {
                                             echo "-";
                                         }
                                         ?>
-                                 </td>
-                                 <td class="text-center">
-                                     <?php
+                     </td>
+                     <td class="text-center">
+                         <?php
                                         if ($d['transaksi_jenis'] == "Pengeluaran") {
                                             echo "Rp. " . number_format($d['transaksi_nominal']) . " ,-";
                                         } else {
                                             echo "-";
                                         }
                                         ?>
-                                 </td>
-                                 <td class="text-center">
-                                     <?php
+                     </td>
+                     <td class="text-center">
+                         <?php
                                         echo "Rp. " . number_format($saldo) . " ,-";
                                         ?> </td>
-                             <?php
+                     <?php
                             }
                                 ?>
 
-                     </tbody>
+             </tbody>
+         </table>
+         <br>
+         <br>
+         <br>
+         <br>
 
-                 </table>
-             </div>
+         <table width="100%">
+             <tr>
+                 <td width="250px">
+                     <p>
+                         <br><br>
+                         <br>
+                         <center>Mengetahui,</center>
+                     </p>
+                     <br>
+                     <br>
+                     <br>
+                     <center>
+                         <p>Drs. Milyani, S.AP<br>
+                     </center>
+                 </td>
+                 <td></td>
+                 <td width="250px">
+                     <center>
+                         <p>Banjarbaru, <?php
+                                            $tanggal = date('d F Y');
+                                            $tanggal = str_replace(
+                                                ['January', 'February', 'March', 'April', 'May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
+                                                ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agutus', 'September', 'Oktober', 'November', 'Desember'],
+                                                $tanggal
+                                            );
+                                            echo $tanggal; // contoh hasil: "03-Jan-21"
+                                            ?>
+                         </p>
+                     </center>
+                     <center><b>Komisi Penyiaran Indonesia</b></center>
+                     <center>
+                         <b>Kalimantan Selatan</b>
+                     </center>
+                     <center>Bendahara</center>
+                     </p>
+                     <br>
+                     <br>
+                     <br>
+                     <center>
+                         <p>Norliana, S.Sos.I
+                     </center><br>
+                 </td>
+             </tr>
 
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%;color:black'>            Terbilang </span><i><span lang=EN-ID style='font-size:12.0pt;line-height:107%'>“italic”</span></i></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>            </span></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>&nbsp;</span></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>&nbsp;</span></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>&nbsp;</span></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>&nbsp;</span></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>                                                                                   
-                     Banjarbaru,
-                     tgl</span></p>
-
-             <p class=MsoNormal style='margin-bottom:0in'><span lang=EN-ID style='font-size:
-12.0pt;line-height:107%'>                                                                                    <b>Komisi
-                         Penyiaran Indonesia Daerah                        
-                         <p>                                                                              Kalimantan
-                             Selatan</p>
-                     </b></span></p>
-
-             <table class=table-responsive border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
-                 <tr>
-                     <td width=301 valign=top style='width:225.4pt;padding:0in 5.4pt 0in 5.4pt'>
-                         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>Mengetahui</span></p>
-                     </td>
-                     <td width=301 valign=top style='width:225.4pt;padding:0in 5.4pt 0in 5.4pt'>
-                         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>Bendahara</span></p>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td width=301 valign=top style='width:225.4pt;padding:0in 5.4pt 0in 5.4pt'>
-                         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>&nbsp;</span></p>
-                     </td>
-                     <td width=301 valign=top style='width:225.4pt;padding:0in 5.4pt 0in 5.4pt'>
-                         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>&nbsp;</span></p>
-                         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>&nbsp;</span></p>
-                         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>&nbsp;</span></p>
-                         <p class=MsoNormal style='margin-bottom:0in;line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>&nbsp;</span></p>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td width=301 valign=top style='width:225.4pt;padding:0in 5.4pt 0in 5.4pt'>
-                         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>Drs</span></p>
-                     </td>
-                     <td width=301 valign=top style='width:225.4pt;padding:0in 5.4pt 0in 5.4pt'>
-                         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><span lang=EN-ID style='font-size:12.0pt'>Nor</span></p>
-                     </td>
-                 </tr>
-             </table>
-
-             <script>
-                 window.print();
-                 $(document).ready(function() {});
-             </script>
-
-         </body>
+         </table>
+         <script>
+         window.print();
+         $(document).ready(function() {});
+         </script>
+     </body>
 
  </html>
