@@ -51,10 +51,14 @@ $.widget.bridge('uibutton', $.ui.button);
   <script src="../assets/bower_components/fastclick/lib/fastclick.js"></script>
 
   <script src="../assets/dist/js/adminlte.min.js"></script>
-
+  <!-- jQuery -->
+  <script src="../plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE -->
+  <script src="../dist/js/adminlte.js"></script>
   <script src="../assets/dist/js/pages/dashboard.js"></script>
-
-  <script src="../assets/dist/js/demo.js"></script>
+  <script src="../dist/js/pages/dashboard3.js"></script>
   <script src="../assets/bower_components/ckeditor/ckeditor.js"></script>
   <script src="../assets/bower_components/chart.js/Chart.min.js"></script>
 

@@ -28,7 +28,8 @@ if ($jenis == "Pemasukan") {
 }
 
 if ($filename == "") {
-	mysqli_query($koneksi, "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','kode','$nominal','$keterangan','','$bank')") or die(mysqli_error($koneksi));
+	// echo "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','$kode','$nominal','$keterangan','','$bank')";
+	mysqli_query($koneksi, "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','$kode','$nominal','$keterangan','','$bank')") or die(mysqli_error($koneksi));
 	header("location:transaksi.php?alert=berhasil");
 } else {
 	$ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -38,7 +39,8 @@ if ($filename == "") {
 	} else {
 		move_uploaded_file($_FILES['trnfoto']['tmp_name'], '../gambar/bukti/' . $rand . '_' . $filename);
 		$file_gambar = $rand . '_' . $filename;
-		mysqli_query($koneksi, "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','kode','$nominal','$keterangan','$file_gambar','$bank')");
+		// echo "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','$kode','$nominal','$keterangan','$file_gambar','$bank')";
+		mysqli_query($koneksi, "insert into transaksi values (NULL,'$tanggal','$jenis','$kategori','$kode','$nominal','$keterangan','$file_gambar','$bank')");
 		header("location:transaksi.php?alert=berhasil");
 	}
 }

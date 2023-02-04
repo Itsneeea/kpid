@@ -98,7 +98,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Kode Kas</label>
-                                                <input type="number" name="kode" required="required"
+                                                <input type="number" name="kode_rekening" required="required"
                                                     class="form-control" placeholder="Masukkan Kode Kas ..">
                                             </div>
                                             <div class="form-group">

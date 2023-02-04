@@ -217,65 +217,89 @@ include 'header.php'; ?>
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <h4 class="modal-title" id="exampleModalLabel">Edit
-                                                                transaksi</h4>
+                                                                Anggaran</h4>
                                                             <button type="button" class="close" data-dismiss="modal"
                                                                 aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div class="form-group"
-                                                                style="width:100%;margin-bottom:20px">
-                                                                <label>Kategori</label>
-                                                                <select name="uraian_nphd" class="form-control"
-                                                                    id="kategori">
-                                                                    <option value="">
-                                                                        -Pilih-
-                                                                    </option>
-                                                                    <?php
-                                            include '../koneksi.php';
-                                            $kategori = mysqli_query($koneksi, "SELECT*FROM kategori ORDER BY kategori ASC");
-                                            while ($k = mysqli_fetch_array($kategori)) {
-                                            ?>
-                                                                    <option value="<?php echo $k['kategori_id']; ?>">
-                                                                        <?php echo $k['kategori']; ?>
-                                                                    </option>
-                                                                    <?php
-                                            }
-                                            ?>
-                                                                </select>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label>Volume</label>
-                                                                <input type="number" name="volume_nphd"
-                                                                    class="form-control" placeholder="Masukkan Volume.."
-                                                                    value="<?php echo $d['volume_nphd'] ?>">
-                                                            </div>
+                                                        <div class="form-group">
 
-                                                            <div class="form-group">
-                                                                <label>Satuan</label>
-                                                                <input type="text" name="satuan_nphd"
-                                                                    class="form-control" placeholder="Masukkan Satuan.."
-                                                                    value="<?php echo $d['satuan_nphd'] ?>">
-                                                            </div>
+                                                            <label>Kategori</label>
+                                                            <input type="hidden" name="id_nphd"
+                                                                value="<?php echo $d['id_nphd'] ?>">
+                                                            <select name="kategori_nphd" class="form-control"
+                                                                id="kategori" onchange="showUraian()">
+                                                                <option value="">
+                                                                    -Pilih-
+                                                                </option>
+                                                                <?php
+                                    include '../koneksi.php';
+                                    $kategori = mysqli_query($koneksi, "SELECT*FROM kategori ORDER BY kategori ASC");
+                                    while ($k = mysqli_fetch_array($kategori)) {
+                                    ?>
+                                                                <option value="<?php echo $k['kategori_id']; ?>">
+                                                                    <b><?php echo $k['kategori']; ?></b>
+                                                                </option>
+                                                                <?php
+                                    }
+                                    ?>
+                                                            </select>
+                                                        </div>
+                                                        <label>Anggaran</label>
+                                                        <select name="bank_id" class="form-control" id="periode">
+                                                            <option value="">
+                                                                -Pilih-
+                                                            </option>
+                                                            <?php
+                                include '../koneksi.php';
+                                $periode = mysqli_query($koneksi, "SELECT*FROM bank ORDER BY periode ASC");
+                                while ($k = mysqli_fetch_array($periode)) {
+                                ?>
+                                                            <option value="<?php echo $k['bank_id']; ?>">
+                                                                <b><?php echo $k['periode']; ?></b>
+                                                            </option>
+                                                            <?php
+                                }
+                                ?>
+                                                        </select>
+                                                        <div class="form-group">
+                                                            <label>Keterangan</label>
 
-                                                            <div class="form-group">
-                                                                <label>Tarif</label>
-                                                                <input type="number" name="tarif_nphd"
-                                                                    class="form-control" placeholder="Masukkan Tarif.."
-                                                                    value="<?php echo $d['tarif_nphd'] ?>">
-                                                            </div>
+                                                            <input type="text" name="uraian_nphd" class="form-control"
+                                                                placeholder="Masukkan Keterangan..">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Volume</label>
+                                                            <input type="number" name="volume_nphd" class="form-control"
+                                                                placeholder="Masukkan Volume.."
+                                                                value="<?php echo $d['volume_nphd'] ?>">
+                                                        </div>
 
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Tutup</button>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Simpan</button>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label>Satuan</label>
+                                                            <input type="text" name="satuan_nphd" class="form-control"
+                                                                placeholder="Masukkan Satuan.."
+                                                                value="<?php echo $d['satuan_nphd'] ?>">
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Tarif</label>
+                                                            <input type="number" name="tarif_nphd" class="form-control"
+                                                                placeholder="Masukkan Tarif.."
+                                                                value="<?php echo $d['tarif_nphd'] ?>">
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">Tutup</button>
+                                                            <button type="submit"
+                                                                class="btn btn-primary">Simpan</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </form>
                                         <div class="modal fade" id="hapus_nphd_<?php echo $d['id_nphd'] ?>"
                                             tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

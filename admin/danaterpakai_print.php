@@ -135,25 +135,35 @@
     <br>
     <br>
 
-    <table width="100%">
-        <tr>
-            <td width="250px">
-                <p>
-                    <br><br>
-                    <br>
-                    <center>Mengetahui,</center>
-                </p>
-                <br>
-                <br>
-                <br>
-                <center>
-                    <p>Drs. Milyani, S.AP<br>
-                </center>
-            </td>
-            <td></td>
-            <td width="250px">
-                <center>
-                    <p>Banjarbaru, <?php
+    <?php 
+$sql = "SELECT * FROM staff WHERE jabatan = 'Asisten Bidang Keuangan'";
+$result = $koneksi->query($sql);
+
+         if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) { 
+        echo '<table width="100%">
+             <tr>
+                 <td width="250px">
+                     <p>
+                         <br><br>
+                         <br>
+                         <center>Mengetahui,</center>
+                     </p>
+                     <br>
+                     <br>
+                     <br>
+                     <center>
+                         <p>'.$row["nama_staff"].'<br>
+                     </center>
+                 </td>';
+    }
+}
+?>
+    <td></td>
+    <td width="250px">
+        <center>
+            <p>Banjarbaru, <?php
                                             $tanggal = date('d F Y');
                                             $tanggal = str_replace(
                                                 ['January', 'February', 'March', 'April', 'May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
@@ -162,23 +172,31 @@
                                             );
                                             echo $tanggal; // contoh hasil: "03-Jan-21"
                                             ?>
-                    </p>
-                </center>
-                <center><b>Komisi Penyiaran Indonesia</b></center>
-                <center>
-                    <b>Kalimantan Selatan</b>
-                </center>
-                <center>Bendahara</center>
-                </p>
-                <br>
-                <br>
-                <br>
-                <center>
-                    <p>Norliana, S.Sos.I
-                </center><br>
-            </td>
-        </tr>
+            </p>
+        </center>
+        <center><b>Komisi Penyiaran Indonesia</b></center>
+        <center>
+            <b>Kalimantan Selatan</b>
+        </center>
+        <center>Bendahara</center>
+        </p>
+        <br>
+        <br>
+        <br>
+        <?php    $sql = "SELECT * FROM staff WHERE jabatan = 'Bendahara'";
+             $result = $koneksi->query($sql);
 
+             if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) {
+             echo ' <center>
+                 <p>'.$row["nama_staff"].'
+             </center>';
+             }
+             }
+             ?><br>
+    </td>
+    </tr>
     </table>
     <script>
     window.print();
