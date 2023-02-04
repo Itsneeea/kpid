@@ -1,13 +1,12 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-      <strong>Copyright &copy; 2014-2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-      All rights reserved.
-      <div class="float-right d-none d-sm-inline-block">
-          <b>Version</b> 3.2.0
-      </div>
+    <strong>Copyright &copy; 2014-2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.2.0
+    </div>
   </footer>
   </div>
-
 
   <!-- jQuery -->
   <script src="../plugins/jquery/jquery.min.js"></script>
@@ -15,12 +14,14 @@
   <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE -->
   <script src="../dist/js/adminlte.js"></script>
+  <script src="../plugins/moment/moment.min.js"></script>
+  <script src="../plugins/fullcalendar/main.min.js"></script>
   <script src="../assets/bower_components/jquery/dist/jquery.min.js"></script>
 
   <script src="../assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
 
   <script>
-$.widget.bridge('uibutton', $.ui.button);
+    $.widget.bridge('uibutton', $.ui.button);
   </script>
 
   <script src="../assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -63,11 +64,11 @@ $.widget.bridge('uibutton', $.ui.button);
   <script src="../assets/bower_components/chart.js/Chart.min.js"></script>
 
   <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    // $(".edit").hide();
+      // $(".edit").hide();
 
-    $('#table-datatable').DataTable({
+      $('#table-datatable').DataTable({
         'paging': true,
         'lengthChange': false,
         'searching': true,
@@ -78,35 +79,34 @@ $(document).ready(function() {
         "scrollX": "80",
         "responsive": true
 
+      });
+
     });
 
-});
+    $('#datepicker').datepicker({
+      autoclose: true,
+      format: 'dd/mm/yyyy',
+    }).datepicker("setDate", new Date());
 
-$('#datepicker').datepicker({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-}).datepicker("setDate", new Date());
+    $('.datepicker2').datepicker({
+      autoclose: true,
+      format: 'yyyy/mm/dd',
+    }).datepicker("setDate", new Date());
 
-$('.datepicker2').datepicker({
-            autoclose: true,
-            format: 'yyyy/mm/dd',
+    var randomScalingFactor = function() {
+      return Math.round(Math.random() * 100)
+    };
 
-            <
-            script >
-            var randomScalingFactor = function() {
-                return Math.round(Math.random() * 100)
-            };
-
-            var barChartData = {
-                labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
-                datasets: [{
-                        label: 'Pemasukan',
-                        fillColor: "rgba(51, 240, 113, 0.61)",
-                        strokeColor: "rgba(11, 246, 88, 0.61)",
-                        highlightFill: "rgba(220,220,220,0.75)",
-                        highlightStroke: "rgba(220,220,220,1)",
-                        data: [
-                            <?php
+    var barChartData = {
+      labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"],
+      datasets: [{
+          label: 'Pemasukan',
+          fillColor: "rgba(51, 240, 113, 0.61)",
+          strokeColor: "rgba(11, 246, 88, 0.61)",
+          highlightFill: "rgba(220,220,220,0.75)",
+          highlightStroke: "rgba(220,220,220,1)",
+          data: [
+            <?php
             for ($bulan = 1; $bulan <= 12; $bulan++) {
               $thn_ini = date('Y');
               $pemasukan = mysqli_query($koneksi, "select sum(transaksi_nominal) 
@@ -123,16 +123,16 @@ $('.datepicker2').datepicker({
               }
             }
             ?>
-                        ]
-                    },
-                    {
-                        label: 'Pengeluaran',
-                        fillColor: "rgba(255, 51, 51, 0.8)",
-                        strokeColor: "rgba(248, 5, 5, 0.8)",
-                        highlightFill: "rgba(151,187,205,0.75)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [
-                            <?php
+          ]
+        },
+        {
+          label: 'Pengeluaran',
+          fillColor: "rgba(255, 51, 51, 0.8)",
+          strokeColor: "rgba(248, 5, 5, 0.8)",
+          highlightFill: "rgba(151,187,205,0.75)",
+          highlightStroke: "rgba(151,187,205,1)",
+          data: [
+            <?php
             for ($bulan = 1; $bulan <= 12; $bulan++) {
               $thn_ini = date('Y');
               $pengeluaran = mysqli_query($koneksi, "select sum(transaksi_nominal) 
@@ -150,32 +150,31 @@ $('.datepicker2').datepicker({
               }
             }
             ?>
-                        ]
-                    }
-                ]
+          ]
+        }
+      ]
 
-            }
+    }
 
-
-            var barChartData2 = {
-                labels: [
-                    <?php
+    var barChartData2 = {
+      labels: [
+        <?php
         $tahun = mysqli_query($koneksi, "select distinct year(transaksi_tanggal) 
     as tahun from transaksi order by year(transaksi_tanggal) asc");
         while ($t = mysqli_fetch_array($tahun)) {
         ?> "<?php echo $t['tahun']; ?>",
-                    <?php
+        <?php
         }
         ?>
-                ],
-                datasets: [{
-                        label: 'Pemasukan',
-                        fillColor: "rgba(51, 240, 113, 0.61)",
-                        strokeColor: "rgba(11, 246, 88, 0.61)",
-                        highlightFill: "rgba(220,220,220,0.75)",
-                        highlightStroke: "rgba(220,220,220,1)",
-                        data: [
-                            <?php
+      ],
+      datasets: [{
+          label: 'Pemasukan',
+          fillColor: "rgba(51, 240, 113, 0.61)",
+          strokeColor: "rgba(11, 246, 88, 0.61)",
+          highlightFill: "rgba(220,220,220,0.75)",
+          highlightStroke: "rgba(220,220,220,1)",
+          data: [
+            <?php
             $tahun = mysqli_query($koneksi, "select distinct year(transaksi_tanggal) 
       as tahun from transaksi order by year(transaksi_tanggal) asc");
             while ($t = mysqli_fetch_array($tahun)) {
@@ -191,16 +190,16 @@ $('.datepicker2').datepicker({
               }
             }
             ?>
-                        ]
-                    },
-                    {
-                        label: 'Pengeluaran',
-                        fillColor: "rgba(255, 51, 51, 0.8)",
-                        strokeColor: "rgba(248, 5, 5, 0.8)",
-                        highlightFill: "rgba(151,187,205,0.75)",
-                        highlightStroke: "rgba(254, 29, 29, 0)",
-                        data: [
-                            <?php
+          ]
+        },
+        {
+          label: 'Pengeluaran',
+          fillColor: "rgba(255, 51, 51, 0.8)",
+          strokeColor: "rgba(248, 5, 5, 0.8)",
+          highlightFill: "rgba(151,187,205,0.75)",
+          highlightStroke: "rgba(254, 29, 29, 0)",
+          data: [
+            <?php
             $tahun = mysqli_query($koneksi, "select distinct year(transaksi_tanggal) 
       as tahun from transaksi order by year(transaksi_tanggal) asc");
             while ($t = mysqli_fetch_array($tahun)) {
@@ -216,42 +215,33 @@ $('.datepicker2').datepicker({
               }
             }
             ?>
-                        ]
-                    }
-                ]
+          ]
+        }
+      ]
 
-            }
+    }
 
+    window.onload = function() {
+      var ctx = document.getElementById("grafik1").getContext("2d");
+      window.myBar = new Chart(ctx).Bar(barChartData, {
+        responsive: true,
+        animation: true,
+        barValueSpacing: 5,
+        barDatasetSpacing: 1,
+        tooltipFillColor: "rgba(0,0,0,0.8)",
+        multiTooltipTemplate: "<%= datasetLabel %> - Rp.<%= value.toLocaleString() %>,-"
+      });
 
-
-            window.onload = function() {
-                var ctx = document.getElementById("grafik1").getContext("2d");
-                window.myBar = new Chart(ctx).Bar(barChartData, {
-                    responsive: true,
-                    animation: true,
-                    barValueSpacing: 5,
-                    barDatasetSpacing: 1,
-                    tooltipFillColor: "rgba(0,0,0,0.8)",
-                    multiTooltipTemplate: "<%= datasetLabel %> - Rp.<%= value.toLocaleString() %>,-"
-                });
-
-                var ctx = document.getElementById("grafik2").getContext("2d");
-                window.myBar = new Chart(ctx).Bar(barChartData2, {
-                    responsive: true,
-                    animation: true,
-                    barValueSpacing: 5,
-                    barDatasetSpacing: 1,
-                    tooltipFillColor: "rgba(0,0,0,0.8)",
-                    multiTooltipTemplate: "<%= datasetLabel %> - Rp.<%= value.toLocaleString() %>,-"
-                });
-
-
-
-
-
-
-
-            }
+      var ctx = document.getElementById("grafik2").getContext("2d");
+      window.myBar = new Chart(ctx).Bar(barChartData2, {
+        responsive: true,
+        animation: true,
+        barValueSpacing: 5,
+        barDatasetSpacing: 1,
+        tooltipFillColor: "rgba(0,0,0,0.8)",
+        multiTooltipTemplate: "<%= datasetLabel %> - Rp.<%= value.toLocaleString() %>,-"
+      });
+    }
   </script>
   </body>
 
