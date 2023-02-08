@@ -68,11 +68,11 @@
                             </div>
                         </div>
 
-                        <a href="laporan_excel.php?periode=<?php echo $periode ?>" target="_blank"
+                        <!-- <a href="laporan_excel.php?periode=<?php echo $periode ?>" target="_blank"
                             class="btn btn-sm btn-success"><i class="fa fa-file-pdf-o"></i>
                             &nbsp
                             CETAK
-                            EXCEL</a>
+                            EXCEL</a> -->
                         <a href="nphd_print.php?periode=<?php echo $periode ?>" target="_blank"
                             class="btn btn-sm btn-primary"><i class="fa fa-print"></i> &nbsp
                             PRINT</a>

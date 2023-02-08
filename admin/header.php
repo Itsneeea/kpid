@@ -25,13 +25,6 @@
     <link rel="stylesheet" href="../assets/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="../assets/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <link rel="stylesheet" href="../assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-    <script src="../plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE -->
-    <script src="../dist/js/adminlte.js"></script>
-    <script src="../plugins/moment/moment.min.js"></script>
-    <script src="../plugins/fullcalendar/main.min.js"></script>
     <style>
         .pagination li {
             display: inline-block;
@@ -72,14 +65,16 @@
             margin-right: 10px;
         }
     </style>
-</head><?php include '../koneksi.php';
-        session_start();
+</head>
 
-        if ($_SESSION['status'] != "administrator_logedin") {
-            header("location:../index.php?alert=belum_login");
-        }
+<?php
+include '../koneksi.php';
+session_start();
 
-        ?></head>
+if ($_SESSION['status'] != "administrator_logedin") {
+    header("location:../index.php?alert=belum_login");
+}
+?>
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -88,76 +83,164 @@
             <!-- < !-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></li>
-                <!-- <li class="nav-item d-none d-sm-inline-block"><a href="index.php" class="nav-link">Home</a></li>
-                <li class="nav-item d-none d-sm-inline-block"><a href="logout.php" class="nav-link">logout</a></li> -->
-
             </ul>
             <!-- < !-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="nav-link" data-widget="fullscreen" href="#" role="button"><i class="fas fa-expand-arrows-alt"></i></a></li>
             </ul>
-        </nav></a></header>
-        <aside class="main-sidebar sidebar-dark-primary elevation-4"><a href="index.php" class="brand-link"><img src="../assets/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-2" style="opacity: .8" width="120px"><span class="brand-text font-weight-light">KPID
-                    KALSEL</span></a>
+        </nav>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <a href="index.php" class="brand-link">
+                <img src="../assets/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-2" style="opacity: .8" width="120px">
+                <span class="brand-text font-weight-light">KPID KALSEL</span>
+            </a>
             <div class="sidebar">
-
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item"><a href="index.php" class="nav-link"><i class="fa-regular fa-laptop-code nav-icon"></i>
+                        <li class="nav-item">
+                            <a href="index.php" class="nav-link">
+                                <i class="fa-regular fa-laptop-code nav-icon"></i>
                                 <p>Dashboard </p>
                             </a>
-                        <li class="nav-item nav-tree"><a href="kategori.php" class="nav-link" font-size="5px"><i class="fa-regular fa-folder-open nav-icon"></i>
-                                <p>KATEGORI NPHD</p>
-                            </a></li>
-
-                        <li class="nav-item"><a href="transaksi.php" class="nav-link"><i class="fa-solid fa-magnifying-glass-dollar nav-icon"></i>
-                                <p>DATA TRANSAKSI</p>
-                            </a></li>
-                        <li class="nav-item"><a href="bank.php" class="nav-link"><i class="fa-solid fa-address-book nav-icon"></i>
-                                <p>DATA AKUN</p>
-                            </a></li>
                         </li>
-                        <li class="nav-item nav-tree"><a href="nphd.php" class="nav-link"><i class="fa-regular fa-folder-open nav-icon"></i>
+                        <li class="nav-item">
+                            <a href="kategori.php" class="nav-link">
+                                <i class="fa-regular fa-folder-open nav-icon"></i>
+                                <p>KATEGORI NPHD</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="transaksi.php" class="nav-link">
+                                <i class="fa-solid fa-magnifying-glass-dollar nav-icon"></i>
+                                <p>DATA TRANSAKSI</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="bank.php" class="nav-link">
+                                <i class="fa-solid fa-address-book nav-icon"></i>
+                                <p>DATA AKUN</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="nphd.php" class="nav-link">
+                                <i class="fa-regular fa-folder-open nav-icon"></i>
                                 <p>ANGGARAN NPHD</p>
-                            </a></li>
-                        <li class="nav-item"><a href="bukukas.php" class="nav-link"><i class="fa-solid fa-book nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="bukukas.php" class="nav-link">
+                                <i class="fa-solid fa-book nav-icon"></i>
                                 <p>L. BUKU KAS UMUM</p>
-                            </a></li>
-                        <li class="nav-item nav-tree"><a href="laporan_nphd.php?periode=1" class="nav-link"><i class="fa-regular fa-folder-open nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="laporan_nphd.php?periode=1" class="nav-link">
+                                <i class="fa-regular fa-folder-open nav-icon"></i>
                                 <p>L. ANGGARAN NPHD</p>
-                            </a></li>
-                        <li class="nav-item nav-tree"><a href="danaterpakai.php?periode=1" class="nav-link"><i class="fa-regular fa-folder-open nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="danaterpakai.php?periode=1" class="nav-link">
+                                <i class="fa-regular fa-folder-open nav-icon"></i>
                                 <p>L. ANGGARAN TERPAKAI</p>
-                            </a></li>
-                        <li class="nav-item"><a href="laporan.php" class="nav-link"><i class="fa-solid fa-book nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="laporan.php" class="nav-link">
+                                <i class="fa-solid fa-book nav-icon"></i>
                                 <p>LAPORAN TRANSAKSI</p>
-                            </a></li>
-                        <li class="nav-item"><a href="hutang.php" class="nav-link"><i class="fa-regular fa-file-lines nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="hutang.php" class="nav-link">
+                                <i class="fa-regular fa-file-lines nav-icon"></i>
                                 <p>LAPORAN HUTANG</p>
-                            </a></li>
-                        <li class="nav-item"><a href="piutang.php" class="nav-link"><i class="fa-regular fa-file nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="piutang.php" class="nav-link">
+                                <i class="fa-regular fa-file nav-icon"></i>
                                 <p>LAPORAN PIUTANG</p>
-                            </a></li>
-                        <li class="nav-item"><a href="user.php" class="nav-link"><i class="fa-regular fa-user-large nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="user.php" class="nav-link">
+                                <i class="fa-regular fa-user-large nav-icon"></i>
                                 <p>MANAJEMEN PENGGUNA</p>
-                            </a></li>
-                        <li class="nav-item"><a href="gantipassword.php" class="nav-link"><i class="fa-regular fa-key nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="staff.php" class="nav-link">
+                                <i class="fa-regular fa-user-large nav-icon"></i>
+                                <p>DATA STAFF</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="gantipassword.php" class="nav-link">
+                                <i class="fa-regular fa-key nav-icon"></i>
                                 <p>GANTI PASSWORD</p>
-                            </a></li>
-                        <li class="nav-item"><a href="logout.php" class="nav-link"><i class="fa-regular fa-person-running nav-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout.php" class="nav-link">
+                                <i class="fa-regular fa-person-running nav-icon"></i>
                                 <p>KELUAR</p>
-                            </a></li>
+                            </a>
+                        </li>
+                        <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-circle"></i>
+                                <p>
+                                    Level 1
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Level 2</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Level 2
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Level 3</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Level 3</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>Level 3</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Level 2</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
-                    </li>
                 </nav>
             </div>
         </aside>
-
-        <script src="../plugins/jquery/jquery.min.js"></script>
-
-        <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-        <script src="../dist/js/adminlte.js"></script>
-</body>
-
-</html>

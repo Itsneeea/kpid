@@ -303,7 +303,18 @@ if(mysqli_num_rows($data) > 0){
                  <br>
                  <br>
                  <center>
-                     <p>Azhari Fadli, S.Pd.I.
+                     <?php    $sql = "SELECT * FROM staff WHERE jabatan = 'Ketua Umum'";
+             $result = $koneksi->query($sql);
+
+             if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) {
+             echo ' <center>
+                 <p>'.$row["nama_staff"].'
+             </center>';
+             }
+             }
+             ?>
                  </center><br>
 
              </td>

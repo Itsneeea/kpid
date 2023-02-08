@@ -31,7 +31,7 @@
                                         <th class="text-center">NO.KAS</th>
                                         <th class="text-center">MASUK</th>
                                         <th class="text-center">KELUAR</th>
-                                        <th width="10%" rowspan="2">SALDO</th>
+                                        <th width="10%" rowspan="2" class="text-center">SALDO</th>
                                         <th rowspan="2" width="10%" class="text-center">OPSI</th>
                                     </tr>
 
@@ -43,17 +43,11 @@
 
                                 // Calculate the total income
                                 $total_pemasukan = 0;
-                                $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pemasukan'");
-                                while ($d = mysqli_fetch_array($data)) {
-                                    $total_pemasukan += $d['transaksi_nominal'];
-                                }
+                                
 
                                 // Calculate the total expenditure
                                 $total_pengeluaran = 0;
-                                $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pengeluaran'");
-                                while ($d = mysqli_fetch_array($data)) {
-                                    $total_pengeluaran += $d['transaksi_nominal'];
-                                }
+                              
 
                                 // Calculate the balance
                                 $saldo = $total_pemasukan - $total_pengeluaran;
@@ -102,7 +96,7 @@
                                             }
                                             ?>
                                         </td>
-                                        <td class="text-center">
+                                        <td class="text-center" width="20%">
                                             <?php
                                             echo "Rp. " . number_format($saldo) . " ,-";
                                             ?> </td>

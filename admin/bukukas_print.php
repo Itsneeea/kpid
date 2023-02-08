@@ -1,5 +1,7 @@
  <?php
- include 'fungsi.php';?>
+ include 'fungsi.php';
+  include '../koneksi.php';?>
+
  <!DOCTYPE html>
  <html>
 
@@ -50,16 +52,36 @@
      <hr>
      <p align="center"><b>BUKU KAS UMUM T.A <?php echo date('Y');?></b></p>
      <table>
-         <tr>
+         <?php 
+$sql = "SELECT * FROM staff WHERE jabatan = 'Asisten Bidang Keuangan'";
+$result = $koneksi->query($sql);
+
+         if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) { 
+        echo ' <tr>
              <td width="150px">Staff Keuangan</td>
              <td width="2px">: </td>
-             <td>Drs.Milyani, M. AP</td>
-         </tr>
-         <tr>
+             <td>'.$row["nama_staff"].'</td>
+         </tr>';
+    }
+}
+?>
+         <?php 
+$sql = "SELECT * FROM staff WHERE jabatan = 'Bendahara'";
+$result = $koneksi->query($sql);
+
+         if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) { 
+        echo '<tr>
              <td width="100px">Bendahara</td>
              <td width="4px">: </td>
-             <td>Norliana, S.Sos.i</td>
-         </tr>
+             <td>'.$row["nama_staff"].'</td>
+         </tr>';
+    }
+}
+?>
          <tr>
              <td width="100px">Tahun</td>
              <td width="4px">: </td>
@@ -82,7 +104,7 @@
          </div>
 
          <?php
-                include '../koneksi.php';
+                
                 $data = mysqli_query($koneksi, "SELECT * FROM transaksi");
                 ?>
 
@@ -102,36 +124,30 @@
              </thead>
              <tbody>
                  <?php include '../koneksi.php';
-                            $no = 1;
+                                $no = 1;
 
-                            // Calculate the total income
-                            $total_pemasukan = 0;
-                            $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pemasukan'");
-                            while ($d = mysqli_fetch_array($data)) {
-                                $total_pemasukan += $d['transaksi_nominal'];
-                            }
+                                // Calculate the total income
+                                $total_pemasukan = 0;
+                                
 
-                            // Calculate the total expenditure
-                            $total_pengeluaran = 0;
-                            $data = mysqli_query($koneksi, "SELECT * FROM transaksi WHERE transaksi_jenis='Pengeluaran'");
-                            while ($d = mysqli_fetch_array($data)) {
-                                $total_pengeluaran += $d['transaksi_nominal'];
-                            }
+                                // Calculate the total expenditure
+                                $total_pengeluaran = 0;
+                              
 
-                            // Calculate the balance
-                            $saldo = $total_pemasukan - $total_pengeluaran;
+                                // Calculate the balance
+                                $saldo = $total_pemasukan - $total_pengeluaran;
 
-                            // Iterate over the transactions and update the balance
-                            $data = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY transaksi_id ASC");
-                            while ($d = mysqli_fetch_array($data)) {
-                                if ($d['transaksi_jenis'] == 'Pengeluaran') {
-                                    // Subtract the amount of the transaction from the balance
-                                    $saldo -= $d['transaksi_nominal'];
-                                } else if ($d['transaksi_jenis'] == 'Pemasukan') {
-                                    // Subtract the amount of the transaction from the balance
-                                    $saldo += $d['transaksi_nominal'];
-                                }
-                            ?>
+                                // Iterate over the transactions and update the balance
+                                $data = mysqli_query($koneksi, "SELECT * FROM transaksi ORDER BY transaksi_id ASC");
+                                while ($d = mysqli_fetch_array($data)) {
+                                    if ($d['transaksi_jenis'] == 'Pengeluaran') {
+                                        // Subtract the amount of the transaction from the balance
+                                        $saldo -= $d['transaksi_nominal'];
+                                    } else if ($d['transaksi_jenis'] == 'Pemasukan') {
+                                        // Subtract the amount of the transaction from the balance
+                                        $saldo += $d['transaksi_nominal'];
+                                    }
+                                ?>
                  <tr>
                      <td>
                          <center><?php
@@ -182,8 +198,14 @@
          <br>
          <br>
          <br>
+         <?php 
+$sql = "SELECT * FROM staff WHERE jabatan = 'Asisten Bidang Keuangan'";
+$result = $koneksi->query($sql);
 
-         <table width="100%">
+         if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) { 
+        echo '<table width="100%">
              <tr>
                  <td width="250px">
                      <p>
@@ -195,13 +217,16 @@
                      <br>
                      <br>
                      <center>
-                         <p>Drs. Milyani, S.AP<br>
+                         <p>'.$row["nama_staff"].'<br>
                      </center>
-                 </td>
-                 <td></td>
-                 <td width="250px">
-                     <center>
-                         <p>Banjarbaru, <?php
+                 </td>';
+    }
+}
+?>
+         <td></td>
+         <td width="250px">
+             <center>
+                 <p>Banjarbaru, <?php
                                             $tanggal = date('d F Y');
                                             $tanggal = str_replace(
                                                 ['January', 'February', 'March', 'April', 'May', 'June', 'Jule', 'August', 'September', 'October', 'November', 'December'],
@@ -210,23 +235,31 @@
                                             );
                                             echo $tanggal; // contoh hasil: "03-Jan-21"
                                             ?>
-                         </p>
-                     </center>
-                     <center><b>Komisi Penyiaran Indonesia</b></center>
-                     <center>
-                         <b>Kalimantan Selatan</b>
-                     </center>
-                     <center>Bendahara</center>
-                     </p>
-                     <br>
-                     <br>
-                     <br>
-                     <center>
-                         <p>Norliana, S.Sos.I
-                     </center><br>
-                 </td>
-             </tr>
+                 </p>
+             </center>
+             <center><b>Komisi Penyiaran Indonesia</b></center>
+             <center>
+                 <b>Kalimantan Selatan</b>
+             </center>
+             <center>Bendahara</center>
+             </p>
+             <br>
+             <br>
+             <br>
+             <?php    $sql = "SELECT * FROM staff WHERE jabatan = 'Bendahara'";
+             $result = $koneksi->query($sql);
 
+             if ($result->num_rows > 0) {
+             // output data of each row
+             while ($row = $result->fetch_assoc()) {
+             echo ' <center>
+                 <p>'.$row["nama_staff"].'
+             </center>';
+             }
+             }
+             ?><br>
+         </td>
+         </tr>
          </table>
          <script>
          window.print();
